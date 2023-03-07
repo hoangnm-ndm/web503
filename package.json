@@ -1,18 +1,25 @@
 {
-  "name": "lession-1",
+  "name": "onclass",
   "version": "1.0.0",
   "description": "",
-  "main": "serve.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./app.js"
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangnm-ndm/web503_nodejs.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2"
+  "bugs": {
+    "url": "https://github.com/hoangnm-ndm/web503_nodejs/issues"
   },
+  "homepage": "https://github.com/hoangnm-ndm/web503_nodejs#readme",
   "devDependencies": {
     "nodemon": "^2.0.21"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
