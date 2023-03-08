@@ -1,6 +1,6 @@
 const products = [
-  { id: 1, name: "Iphone 12", price: 2000 },
-  { id: 2, name: "Iphone 11000", price: 1000 },
+  { id: 1, name: "laptop acer abc", price: 12000000 },
+  { id: 2, name: "laptop dell fvg", price: 20000000 },
 ];
 
 // Cài đặt nodejs, default đã có rất package hỗ trợ
@@ -16,14 +16,14 @@ const products = [
 //         res.setHeader("Content-Type", "text/html");
 //         res.end(`<html>
 //                     <body>
-//                         <form action="/products" method="post">
+//                         <form action="/api/products" method="post">
 //                             <input type="text" name="name" />
 //                             <button>Submit</button>
 //                         </form>
 //                     </body>
 //                 </html>`);
 //     }
-//     if (req.url == "/products" && req.method == "POST") {
+//     if (req.url == "/api/products" && req.method == "POST") {
 //         const body = [];
 //         req.on("data", function (chunk) {
 //             body.push(chunk);
@@ -50,7 +50,7 @@ const app = express();
 app.use(express.json());
 
 // Trả về danh sách
-app.get("/products", (req, res) => {
+app.get("/api/products", (req, res) => {
   res.json(products);
 });
 // Trả về một sản phẩm
@@ -60,7 +60,7 @@ app.get("/products/:id", (req, res) => {
   res.json(product);
 });
 // Thêm sản phẩm
-app.post("/products", (req, res) => {
+app.post("/api/products", (req, res) => {
   // Lấy dữ liệu từ client body gửi lên
   const product = req.body;
   // push vào mảng products
@@ -72,7 +72,7 @@ app.post("/products", (req, res) => {
   });
 });
 // Xóa sản phẩm
-app.delete("/products/:id", (req, res) => {
+app.delete("/api/products/:id", (req, res) => {
   const id = req.params.id;
   const newProducts = products.filter((item) => item.id != id);
   res.status(200).json({
@@ -82,7 +82,7 @@ app.delete("/products/:id", (req, res) => {
 });
 // Cập nhật sản phẩm
 
-app.patch("/products/:id", (req, res) => {
+app.put("/api/product/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
   const newProducts = products.map((item) => (item.id == id ? body : item));
