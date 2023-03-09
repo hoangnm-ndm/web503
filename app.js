@@ -31,13 +31,47 @@ app.get("/product/:id", (req, res) => {
 
   const id = req.params.id;
   const product = products.find((item) => item.id == id);
-  res.send(product);
+  res.status(200).send({
+    messenger: `Hiển thị sản phẩm ${product?.name}`,
+    data: product,
+  });
 });
+
+// app.get("/product/form", (req, res) => {
+//   res.setHeader("content-type", "text/plain");
+//   res.type("txt");
+//   res.send(
+//     `
+//     <form action="/product/create" method="POST">
+//       <label for="">Tên sản phẩm</label>
+//       <input type="text" placeholder="Tên sản phẩm" />
+//       <br />
+//       <label for="">Giá sản phẩm</label>
+//       <input type="text" placeholder="Giá sản phẩm" />
+//       <br />
+//       <input type="submit" value="Gửi đi" />
+//     </form>
+//   `
+//   );
+// });
 
 app.post("/product/create", (req, res) => {
   // console.log(req.body);
   products.push(req.body);
-  res.send(products);
+  // const newProducts = [...products, ...req.body];
+  res.status(201).send({
+    messenger: "Tạo mới sản phẩm thành công",
+    datas: products,
+  });
+});
+
+app.put("/product/:id", (req, res) => {
+  const id = req.params.id;
+  const newProducts = products.map((item) => (item.id == id ? req.body : item));
+  res.send({
+    messenger: "Update san pham thanh cong!",
+    data: newProducts,
+  });
 });
 
 app.listen(port, () => {
