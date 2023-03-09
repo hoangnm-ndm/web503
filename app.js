@@ -1,28 +1,27 @@
-const express = require("express");
+// const express = require("express");
+import express from "express";
 const app = express();
 const port = 8000;
 
-app.get("/", (req, res) => {
-  // code lai noi dung ben server.js
-  res.send(`
-    <h1>Home Page</h1>
-    <h2>Noi dung cua Homepage</h2>
-  `);
-});
+const products = [
+  { id: 1, name: "laptop gaming acer", price: 1000 },
+  { id: 2, name: "laptop dell vostro", price: 2000 },
+  { id: 3, name: "macbook", price: 500 },
+];
+
+app.use(express.json());
+
 app.get("/products", (req, res) => {
   // code lai noi dung ben server.js
-  res.send(`
-    <h1>Products Page</h1>
-  `);
+  res.send(products);
 });
 
+// Get 1 item product
 app.get("/product/:id", (req, res) => {
-  res.send(
-    `
-    <h1>Product có id la: ${req.params.id}</h1>
-    
-    `
-  );
+  const id = req.params.id; // string
+  const product = products.filter((item) => item.id == id);
+  // console.log(product);
+  res.send(product);
 });
 app.listen(port, () => {
   console.log(`ung dung dang chay vao file app tren port: ${port}`);
