@@ -14,6 +14,13 @@ const products = [
 app.get("/api/products", (req, res) => {
   res.json(products);
 });
+
+app.use((req, res, next) => {
+  // midleware
+  // thuc hien 1 nhiem vu nao do
+  console.log("my middleware");
+  next();
+});
 // Trả về một sản phẩm
 app.get("/products/:id", (req, res) => {
   const id = req.params.id;
@@ -22,6 +29,11 @@ app.get("/products/:id", (req, res) => {
 });
 
 app.get("/api/product/create", (req, res) => {
+  res.end(
+    `
+      <footer>noi dung footer</footer>
+    `
+  );
   res.send(
     `
       <form action="/api/products" method="post">
@@ -66,6 +78,10 @@ app.put("/api/product/:id", (req, res) => {
     message: "Cập nhật sản phẩm thành công",
     products: newProducts,
   });
+});
+
+app.use("/products", (req, res) => {
+  res.json(products);
 });
 
 app.listen(port, () => {
