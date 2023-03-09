@@ -11,12 +11,13 @@ const products = [
 
 app.use(express.json());
 
+// GET LIST
 app.get("/products", (req, res) => {
   // code lai noi dung ben server.js
   res.send(products);
 });
 
-// Get 1 item product
+// GET DETAIL
 app.get("/product/:id", (req, res) => {
   const id = req.params.id; // string
   const product = products.filter((item) => item.id == id);
@@ -24,11 +25,34 @@ app.get("/product/:id", (req, res) => {
   res.send(product);
 });
 
+// CREATE
 app.post("/product", (req, res) => {
   products.push(req.body);
   res.status(201).send({
     messenger: "Them san pham thanh cong",
     data: products,
+  });
+});
+
+//UPDATE
+app.put("/product/:id", (req, res) => {
+  const id = req.params.id;
+  const newProducts = products.filter((item) =>
+    item.id == id ? req.body : item
+  );
+  res.send({
+    messenger: "Thay doi thong tin san pham thanh cong",
+    data: newProducts,
+  });
+});
+
+// DELETE
+app.delete("product/:id", (req, res) => {
+  const id = req.params.id;
+  const newProducts = products.filter((item) => item.id != id);
+  res.send({
+    messenger: "Xoa san pham thanh cong",
+    data: newProducts,
   });
 });
 app.listen(port, () => {
