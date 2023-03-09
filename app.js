@@ -1,29 +1,45 @@
+const { application } = require("express");
 const express = require("express");
 const app = express();
 const port = 8000;
 
-app.get("/", (req, res) => {
-  // code lai noi dung ben server.js
-  res.send(`
-    <h1>Home Page</h1>
-    <h2>Noi dung cua Homepage</h2>
-  `);
-});
-app.get("/products", (req, res) => {
-  // code lai noi dung ben server.js
-  res.send(`
-    <h1>Products Page</h1>
-  `);
+const products = [
+  { id: 1, name: "laptop dell vostro", price: 2000 },
+  { id: 2, name: "laptop acer", price: 3000 },
+  { id: 3, name: "laptop hp vostro", price: 1000 },
+];
+
+app.use(express.json()); // JSON.stringify()
+
+app.use((req, res, next) => {
+  // middleware
+  next();
 });
 
+// app.use chỉ quan tâm đến router, không quan tâm đến method
+// app.get("/products", (req, res) => {
+//   // code lai noi dung ben server.js
+//   res.send(products);
+// });
+
+// GET, POST, PUT, DELETE, PATH đều phải đúng cả về router và method
+
 app.get("/product/:id", (req, res) => {
-  res.send(
-    `
-    <h1>Product có id la: ${req.params.id}</h1>
-    
-    `
-  );
+  // req.params
+  // req.query
+  // req.body
+
+  const id = req.params.id;
+  const product = products.find((item) => item.id == id);
+  res.send(product);
 });
+
+app.post("/product/create", (req, res) => {
+  // console.log(req.body);
+  products.push(req.body);
+  res.send(products);
+});
+
 app.listen(port, () => {
   console.log(`ung dung dang chay vao file app tren port: ${port}`);
 });
