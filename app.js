@@ -23,6 +23,14 @@ app.get("/product/:id", (req, res) => {
   // console.log(product);
   res.send(product);
 });
+
+app.post("/product", (req, res) => {
+  products.push(req.body);
+  res.status(201).send({
+    messenger: "Them san pham thanh cong",
+    data: products,
+  });
+});
 app.listen(port, () => {
   console.log(`ung dung dang chay vao file app tren port: ${port}`);
 });
