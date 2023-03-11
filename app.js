@@ -1,89 +1,56 @@
-const express = require("express");
-const app = express();
-const port = 8000;
+import express from "express";
+import routerProduct from "./routes/product.js";
 
+const app = express();
 app.use(express.json());
 
-const products = [
-  { id: 1, name: "laptop acer abc", price: 10000000 },
-  { id: 2, name: "laptop hp Gaming", price: 20000000 },
-  { id: 3, name: "laptop dell vostro", price: 30000000 },
-];
+app.use("/api", routerProduct);
 
-// Trả về danh sách
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
+// localhost: 8000 / api / products;
+// app.get("/api/products", async (req, res) => {
+//     const { data: products } = await axios.get("http://localhost:3001/products");
+//     res.status(200).json(products);
+// });
+// app.get("/api/products/:id", async (req, res) => {
+//     const { data: product } = await axios.get(`http://localhost:3001/products/${req.params.id}`);
+//     res.status(200).json({
+//         message: "Product found",
+//         data: product,
+//     });
+// });
+// // client -> server nodes
+// app.post("/api/products", async (req, res) => {
+//     // gửi request từ server nodes -> json-server
+//     const { data: product } = await axios.post("http://localhost:3001/products", req.body);
+//     res.status(201).json({
+//         message: "Product created",
+//         data: product,
+//     });
+// });
 
-app.use((req, res, next) => {
-  // midleware
-  // thuc hien 1 nhiem vu nao do
-  console.log("my middleware");
-  next();
-});
-// Trả về một sản phẩm
-app.get("/products/:id", (req, res) => {
-  const id = req.params.id;
-  const product = products.find((product) => product.id == id);
-  res.json(product);
-});
+// app.delete("/api/products/:id", async (req, res) => {
+//     await axios.delete(`http://localhost:3001/products/${req.params.id}`);
+//     res.status(200).json({
+//         message: "Sản phẩm đã được xóa thành công",
+//     });
+// });
+// app.patch("/api/products/:id", async (req, res) => {
+//     const { data: product } = await axios.patch(
+//         `http://localhost:3001/products/${req.params.id}`,
+//         req.body
+//     );
+//     res.status(200).json({
+//         message: "Sản phẩm đã được cập nhật thành công",
+//         data: product,
+//     });
+// });
 
-app.get("/api/product/create", (req, res) => {
-  res.end(
-    `
-      <footer>noi dung footer</footer>
-    `
-  );
-  res.send(
-    `
-      <form action="/api/products" method="post">
-      <label for="">name product</label>
-      <input type="text" id="productName" />
-      <label for="">price product</label>
-      <input type="text" id="productPrice" />
-      <input type="submit" value="Submit">
-      </form>
-    `
-  );
-});
-
-// Thêm sản phẩm
-app.post("/api/products", (req, res) => {
-  // Lấy dữ liệu từ client body gửi lên
-  const product = req.body;
-  // push vào mảng products
-  products.push(product);
-  // trả về client dạng json
-  res.json({
-    message: "Thêm sản phẩm thành công",
-    products,
-  });
-});
-// Xóa sản phẩm
-app.delete("/api/products/:id", (req, res) => {
-  const id = req.params.id;
-  const newProducts = products.filter((item) => item.id != id);
-  res.status(200).json({
-    message: "Xóa sản phẩm thành công",
-    products: newProducts,
-  });
-});
-// Cập nhật sản phẩm
-
-app.put("/api/product/:id", (req, res) => {
-  const id = req.params.id;
-  const body = req.body;
-  const newProducts = products.map((item) => (item.id == id ? body : item));
-  res.status(200).json({
-    message: "Cập nhật sản phẩm thành công",
-    products: newProducts,
-  });
+app.listen(8080, () => {
+  console.log("Server is running on port 8080");
 });
 
-app.use("/products", (req, res) => {
-  res.json(products);
-});
-
-app.listen(port, () => {
-  console.log(`ung dung dang chay vao file app tren port: ${port}`);
-});
+// install axios.
+// install concurrently
+// cau hinh lai package.json
+// them thu muc controllers/product.js
+// them thu muc routes/product.js
