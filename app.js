@@ -1,4 +1,5 @@
 import express from "express";
+// const express = required("express")
 import routerProduct from "./routes/product.js";
 
 const app = express();

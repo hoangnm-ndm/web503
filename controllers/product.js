@@ -94,3 +94,26 @@ export const update = async (req, res) => {
     });
   }
 };
+
+export const put = async (req, res) => {
+  try {
+    const { data: product } = await axios.put(
+      `http://localhost:3001/products/${req.params.id}`,
+      req.body
+    );
+    console.log(data);
+    if (!product) {
+      return res.status(404).json({
+        message: "Không tìm thấy sản phẩm",
+      });
+    }
+    return res.status(200).json({
+      message: "Sản phẩm đã được cập nhật thành công",
+      data: product,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
