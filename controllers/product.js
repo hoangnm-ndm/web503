@@ -1,9 +1,11 @@
 import axios from "axios";
-
+import dotenv from "dotenv";
+dotenv.config();
+import { dotenv } from "dotenv";
 export const getAll = async (req, res) => {
   try {
     const { data: products } = await axios.get(
-      "http://localhost:3001/products"
+      `${process.env.API_URI}/products`
     );
     if (products.length === 0) {
       res.send({
@@ -21,7 +23,7 @@ export const getAll = async (req, res) => {
 export const getDetail = async (req, res) => {
   try {
     const { data: product } = await axios.get(
-      `http://localhost:3001/products/${req.params.id}`
+      `${process.env.API_URI}/${req.params.id}`
     );
     if (!product) {
       res.send({
@@ -39,7 +41,7 @@ export const getDetail = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const { data: product } = await axios.post(
-      `http://localhost:3001/products/`,
+      `${process.env.API_URI}/products/`,
       req.body
     );
     if (!product) {
@@ -58,7 +60,7 @@ export const create = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const { data: product } = await axios.put(
-      `http://localhost:3001/products/${req.params.id}`,
+      `${process.env.API_URI}/products/${req.params.id}`,
       req.body
     );
     if (!product) {
@@ -76,7 +78,7 @@ export const update = async (req, res) => {
 
 export const remove = async (req, res) => {
   try {
-    await axios.delete(`http://localhost:3001/products/${req.params.id}`);
+    await axios.delete(`${process.env.API_URI}/products/${req.params.id}`);
     return res.send({
       messenger: "Xoá sản phẩm thành công!",
     });

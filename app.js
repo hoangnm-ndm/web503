@@ -1,7 +1,9 @@
 import express from "express";
-const app = express();
-const port = 8000;
 import routerProduct from "./routes/product.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+const app = express();
 
 app.use(express.json());
 
@@ -130,8 +132,8 @@ app.use("/api", routerProduct);
 //   });
 // });
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port: ${process.env.PORT}`);
 });
 
 /**
