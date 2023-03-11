@@ -1,37 +1,77 @@
 // const express = require("express");
 import express from "express";
+import axios from "axios";
 const app = express();
 const port = 8000;
-
-const products = [
-  { id: 1, name: "laptop gaming acer", price: 1000 },
-  { id: 2, name: "laptop dell vostro", price: 2000 },
-  { id: 3, name: "macbook", price: 500 },
-];
 
 app.use(express.json());
 
 // GET LIST
-app.get("/products", (req, res) => {
-  // code lai noi dung ben server.js
-  res.send(products);
+app.get("/products", async (req, res) => {
+  try {
+    const { data: products } = await axios.get(
+      "http://localhost:3001/products"
+    );
+    if (products.length === 0) {
+      res.send({
+        messenger: "Danh sách sản phẩm trống",
+      });
+    }
+    return res.json(products);
+  } catch (err) {
+    res.send({
+      messenger: err,
+    });
+  }
 });
 
 // GET DETAIL
-app.get("/product/:id", (req, res) => {
-  const id = req.params.id; // string
-  const product = products.filter((item) => item.id == id);
-  // console.log(product);
-  res.send(product);
+app.get("/products", async (req, res) => {
+  try {
+    const { data: product } = await axios.get(
+      `http://localhost:3001/products/${req.params.id}`
+    );
+    if (!product) {
+      res.send({
+        messenger: "Không tìm thấy sản phẩm",
+      });
+    }
+    return res.json(product);
+  } catch (err) {
+    res.send({
+      messenger: err,
+    });
+  }
 });
 
 // CREATE
-app.post("/product", (req, res) => {
-  products.push(req.body);
-  res.status(201).send({
-    messenger: "Them san pham thanh cong",
-    data: products,
-  });
+// app.post("/product", (req, res) => {
+//   products.push(req.body);
+//   res.status(201).send({
+//     messenger: "Them san pham thanh cong",
+//     data: products,
+//   });
+// });
+
+app.post("/products", async (req, res) => {
+  try {
+    const { data: product } = await axios.post(
+      `http://localhost:3001/products/`,
+      req.body
+    );
+
+    console.log(data);
+    // if (!product) {
+    //   res.send({
+    //     messenger: "Không tìm thấy sản phẩm",
+    //   });
+    // }
+    // return res.json(product);
+  } catch (err) {
+    res.send({
+      messenger: err,
+    });
+  }
 });
 
 //UPDATE
