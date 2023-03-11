@@ -98,3 +98,10 @@ app.delete("product/:id", (req, res) => {
 app.listen(port, () => {
   console.log(`ung dung dang chay vao file app tren port: ${port}`);
 });
+
+// Step 1: tạo file db.json
+// Step 2: cài đặt json-server.
+// Step 3: cài đặt concurrently
+// Step 4: config lại package.json
+// Step 5: install axios
+// Step 6: Code getlist, getdetails
