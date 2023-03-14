@@ -1,10 +1,11 @@
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
+// const API_URI = "http://localhost:3001/products";
 export const getAll = async (req, res) => {
   try {
-    const { data: products } = await axios.get(
-      "http://localhost:3001/products"
-    );
+    const { data: products } = await axios.get("${API_URI}");
     if (products.length === 0) {
       res.status(404).json({
         message: "Không có sản phẩm nào",
@@ -16,13 +17,13 @@ export const getAll = async (req, res) => {
       message: error,
     });
   }
-  // const res = await axios.get("http://localhost:3001/products")
+  // const res = await axios.get("${API_URI}")
   // const data = await res.data
 };
 export const get = async (req, res) => {
   try {
     const { data: product } = await axios.get(
-      `http://localhost:3001/products/${req.params.id}`
+      `${process.env.API_URI}/${req.params.id}`
     );
     if (!product) {
       return res.status(404).json({
@@ -42,7 +43,7 @@ export const get = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const { data: product } = await axios.post(
-      "http://localhost:3001/products",
+      "${process.env.API_URI}",
       req.body
     );
     if (!product) {
@@ -62,7 +63,7 @@ export const create = async (req, res) => {
 };
 export const remove = async (req, res) => {
   try {
-    await axios.delete(`http://localhost:3001/products/${req.params.id}`);
+    await axios.delete(`${process.env.API_URI}/${req.params.id}`);
     return res.status(200).json({
       message: "Sản phẩm đã được xóa thành công",
     });
@@ -76,7 +77,7 @@ export const remove = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const { data: product } = await axios.patch(
-      `http://localhost:3001/products/${req.params.id}`,
+      `${process.env.API_URI}/${req.params.id}`,
       req.body
     );
     if (!product) {
@@ -98,7 +99,7 @@ export const update = async (req, res) => {
 export const put = async (req, res) => {
   try {
     const { data: product } = await axios.put(
-      `http://localhost:3001/products/${req.params.id}`,
+      `${process.env.API_URI}/${req.params.id}`,
       req.body
     );
     console.log(data);
