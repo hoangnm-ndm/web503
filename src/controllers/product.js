@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// const API_URI = "http://localhost:3001/products/";
 export const getAll = async (req, res) => {
   try {
     const { data: products } = await axios.get(
@@ -18,9 +18,7 @@ export const getAll = async (req, res) => {
 
 export const getDetail = async (req, res) => {
   try {
-    const { data: product } = await axios.get(
-      `http://localhost:3001/products/${req.params.id}`
-    );
+    const { data: product } = await axios.get(`${API_URI}${req.params.id}`);
     if (!product) {
       res.send({
         messenger: "Không tìm thấy sản phẩm",
@@ -34,10 +32,7 @@ export const getDetail = async (req, res) => {
 
 export const create = async (req, res) => {
   try {
-    const { data: product } = await axios.post(
-      `http://localhost:3001/products/`,
-      req.body
-    );
+    const { data: product } = await axios.post(`${API_URI}`, req.body);
     if (!product) {
       res.send({
         messenger: "Thêm sản phẩm không thành công",
@@ -51,7 +46,7 @@ export const create = async (req, res) => {
 
 export const remove = async (req, res) => {
   try {
-    await axios.delete(`http://localhost:3001/products/${req.params.id}`);
+    await axios.delete(`${API_URI}${req.params.id}`);
     return res.status(200).json({
       message: "Sản phẩm đã được xóa thành công",
     });
@@ -65,7 +60,7 @@ export const remove = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const { data: product } = await axios.put(
-      `http://localhost:3001/${req.params.id}`,
+      `${API_URI}${req.params.id}`,
       req.body
     );
     if (!product) {
