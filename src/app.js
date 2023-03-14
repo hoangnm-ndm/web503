@@ -21,3 +21,14 @@ app.listen(process.env.PORT, () => {
  * Step 5: setting "type": "module" in package.json
  * Step 6: Add method getAll, getDetail, post, put, delete
  */
+
+/**
+ * 1. Tao folder
+ * 2. Tao file app.js
+ * 3. npm init
+ * 4. install các thư viện: express, nodemon, concurrently, dotenv, axios, json-sever
+ * 5. Import Express và cấu hình trong file app.js
+ * 6. Tạo routes/product.js và cấu hình các routes tại đây.
+ * 7. Tạo controllers/product.js và cấu hình các controllers tại đây.
+ *
+ */
