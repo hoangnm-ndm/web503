@@ -19,3 +19,10 @@ app.listen(process.env.PORT, () => {
 // Step 4: config lại package.json
 // Step 5: install axios
 // Step 6: Code getlist, getdetails
+
+// Config dotenv
+// Step 1: install
+// Step 2: import and config
+// Step 3: create .env file
+// Step 4: use process.env.TEN_BIEN
+// Step 5: gitignore
