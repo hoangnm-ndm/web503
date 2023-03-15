@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "name": "Phuong Thuy",
+      "username": "phuongthuy123",
+      "email": "phuongthuy@gmail.com",
+      "phone": "9956976967",
+      "id": 1
+    },
+    {
+      "name": "Trong Kien",
+      "username": "trongkien123",
+      "email": "trongkien@gmail.com",
+      "phone": "9956976967",
+      "id": 2
+    },
+    {
+      "name": "Hoang Hai",
+      "username": "hoanghai123",
+      "email": "hoanghai@gmail.com",
+      "phone": "9956976967",
+      "id": 3
+    },
+    {
+      "name": "Minh Dung",
+      "username": "minhdung123",
+      "email": "minhdung@gmail.com",
+      "phone": "9956976967",
+      "id": 4
+    },
+    {
+      "name": "Thuy Huong",
+      "username": "thuyhuong4567",
+      "email": "thuyhuong2547@gmail.com",
+      "phone": "444444444444",
+      "id": 5
+    }
+  ]
+}
