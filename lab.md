@@ -12,6 +12,6 @@
 
 #6. Cơ sở dữ liệu mẫu được lưu tại db.json.
 
-#7. Thực hiện 5 phương thức GET, POST, PUT, PATCH, DELETE với dữ liệu đã cho.
+#7. Thực hiện 6 công việc GET, GETALL, POST, PUT, PATCH, DELETE với dữ liệu đã cho.
 
 #8. Test các phương thức với postman và trình bày với giảng viên tại lớp.
