@@ -1,11 +1,16 @@
 import axios from "axios";
+import Joi from "Joi";
 import dotenv from "dotenv";
 dotenv.config();
+const { PORT } = process.env;
 
-// const API_URI = "http://localhost:3001/products";
+const productSchema = Joi.object({
+  name: Joi.string().required(),
+  price: Joi.number().required(),
+});
 export const getAll = async (req, res) => {
   try {
-    const { data: products } = await axios.get("${API_URI}");
+    const { data: products } = await axios.get(`${PORT}`);
     if (products.length === 0) {
       res.status(404).json({
         message: "Không có sản phẩm nào",
@@ -41,6 +46,11 @@ export const get = async (req, res) => {
   }
 };
 export const create = async (req, res) => {
+  const { err } = await productSchema.validateAsync(req.body);
+
+  if (err) {
+    console.log(err);
+  }
   try {
     const { data: product } = await axios.post(
       "${process.env.API_URI}",
