@@ -34,3 +34,10 @@ export const viteNodeApp = app;
  * 7. Tạo controllers/product.js và cấu hình các controllers tại đây.
  *
  */
+
+/**
+ * Cấu hình joi:
+ * 1. npm i joi
+ * 2. import Joi from "joi" (controllers)
+ * 3.
+ */
