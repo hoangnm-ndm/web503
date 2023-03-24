@@ -1,11 +1,14 @@
 import express from "express";
 import routerProduct from "./routes/product.js";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+
+mongoose.connect(`${process.env.URI_DB}`);
 
 app.use("/api", routerProduct);
 
