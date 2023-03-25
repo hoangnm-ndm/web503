@@ -1,6 +1,6 @@
 import express from "express";
 import routerProduct from "./routes/product.js";
-import mongoose from "moongose"
+import mongoose from "mongoose";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -28,6 +28,6 @@ export const viteNodeApp = app;
 // Step 1: install
 // Step 2: import and config
 // Step 3: import { mongoose } from 'mongoose';
-create .env file
+// create .env file
 // Step 4: use process.env.TEN_BIEN
 // Step 5: gitignore
