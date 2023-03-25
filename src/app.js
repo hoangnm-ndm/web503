@@ -1,11 +1,22 @@
-const express = require("express");
-const app = express();
+import express from "express";
+import productRouter from "./routes/product.js";
+import authRouter from "./routes/auth.js";
 import dotenv from "dotenv";
-dotenv.config();
+import mongoose from "mongoose";
+
+const app = express();
 const { PORT } = process.env.PORT;
+dotenv.config();
 
 app.use(express.json());
 
-app.listen(PORT, () => {
-  console.log(`Server is running on: ${PORT}`);
-});
+app.use("/api", productRouter);
+app.use("/api", authRouter);
+
+mongoose.connect("mongodb://localhost:27017/we173xx");
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on: ${PORT}`);
+// });
+
+export const viteNodeApp = app;
