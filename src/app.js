@@ -8,11 +8,10 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017/test");
-const Cat = mongoose.model("Cat", { name: String });
+mongoose.connect(`${process.env.API_DB}`);
 
-const kitty = new Cat({ name: "Zildjian" });
-kitty.save().then(() => console.log("meow"));
+// const kitty = new Cat({ name: "Zildjian" });
+// kitty.save().then(() => console.log("meow"));
 
 app.use("/api", routerProduct);
 

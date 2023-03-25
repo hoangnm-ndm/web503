@@ -1,6 +1,8 @@
 import axios from "axios";
 import Joi from "Joi";
 import dotenv from "dotenv";
+import Product from "../models/product.js";
+
 dotenv.config();
 const { PORT } = process.env;
 
@@ -11,6 +13,7 @@ const productSchema = Joi.object({
 export const getAll = async (req, res) => {
   try {
     const { data: products } = await axios.get(`${PORT}`);
+    // const data = await Product.
     if (products.length === 0) {
       res.status(404).json({
         message: "Không có sản phẩm nào",
