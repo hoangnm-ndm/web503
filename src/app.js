@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 
-mongoose.connect(`${process.env.URI_DB}`);
+mongoose.connect(`${process.env.API_DB}`);
 
 app.use("/api", routerProduct);
 
