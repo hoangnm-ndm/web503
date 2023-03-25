@@ -5,13 +5,19 @@ import mongoose from "mongoose";
 
 const app = express();
 dotenv.config();
-
+const API_DB = process.env.API_DB;
 app.use(express.json());
 
 app.use("/api", productRouter);
 app.use("/api", authRouter);
 
-mongoose.connect("mongodb://localhost:27017/we173xx");
+mongoose.connect(`${API_DB}`);
+
+// function Cat(name, age) {
+//   (this.name = name), (this.age = age);
+// }
+
+// const CatA = new Cat("Dog", 1);
 
 // app.listen(PORT, () => {
 //   console.log(`Server is running on: ${PORT}`);
