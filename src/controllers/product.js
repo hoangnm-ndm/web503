@@ -1,14 +1,14 @@
 import dotenv from "dotenv";
-import joi from "joi";
+import Joi from "joi";
 import Product from "../models/product.js";
 
 dotenv.config();
 const { API_URI } = process.env;
 
-const productSchema = joi.object({
-  name: joi.string().required(),
-  price: joi.number().required(),
-  description: joi.string(),
+const productSchema = Joi.object({
+  name: Joi.string().required(),
+  price: Joi.number().required(),
+  description: Joi.string(),
 });
 
 export const getAll = async (req, res) => {

@@ -4,7 +4,6 @@ import {
   get,
   getAll,
   remove,
-  updatePut,
   updatePatch,
 } from "../controllers/product.js";
 const router = express.Router();
