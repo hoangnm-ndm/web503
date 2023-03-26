@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 export const signup = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { name, email, password } = req.body;
 
     const { error } = signupSchema.validate(req.body, { abortEarly: false });
 
@@ -14,6 +14,8 @@ export const signup = async (req, res) => {
         message: errors,
       });
     }
+
+    // Check xem email đăng ký này đã tồn tại trong DB hay chưa?
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({
@@ -21,7 +23,10 @@ export const signup = async (req, res) => {
       });
     }
 
+    // Dùng bcrypt để mã hoá
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Tạo user mới với password đã được mã hoá
     const user = await User.create({
       name,
       email,
@@ -33,5 +38,9 @@ export const signup = async (req, res) => {
       message: "User created successfully",
       user,
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(400).json({
+      message: error,
+    });
+  }
 };
