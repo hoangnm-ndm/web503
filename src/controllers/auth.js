@@ -33,6 +33,7 @@ export const signup = async (req, res) => {
       password: hashedPassword,
     });
 
+    // Xoá bỏ password trước khi gửi lại thông báo phía client
     user.password = undefined;
     return res.status(201).json({
       message: "User created successfully",
