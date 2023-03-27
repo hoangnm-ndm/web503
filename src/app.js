@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use("/api", productRouter);
 app.use("/api", authRouter);
+// app.use("/api/admin", authRoleAdmin, userRouter);
 
 mongoose.connect(API_DB);
 
