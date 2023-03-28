@@ -3,6 +3,15 @@ import { signupSchema, signinSchema } from "../schemas/auth.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+/**
+ * B1: lấy ra req.body và dùng Joi validation
+ * B2: Nếu validate lỗi thì trả về lỗi.
+ * B3: Check xem email đã có trong hệ thống hay chưa bằng findOne({})
+ * B4: Mã hoá password bằng bcryptjs
+ * B5: Lưu dữ liệu vào database bằng model User.create()
+ * B6: Xoá password và trả thông tin về cho người dùng.
+ */
+
 export const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;

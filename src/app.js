@@ -29,3 +29,10 @@ mongoose.connect(API_DB);
 // });
 
 export const viteNodeApp = app;
+
+/**
+ * B1: Tạo router mới routes/auth.js, add router vào trong app.js
+ * B2: Tạo controller mới (signin với phương thức post)
+ *  -
+ * B3: Validation req.body với Joi -> tách riêng thành schemas/auth.js
+ */
