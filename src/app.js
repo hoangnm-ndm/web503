@@ -3,9 +3,12 @@ import productRouter from "./routes/product.js";
 import authRouter from "./routes/auth.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
+
+app.use(cors());
 const API_DB = process.env.API_DB;
 app.use(express.json());
 
