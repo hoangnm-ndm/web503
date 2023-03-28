@@ -35,12 +35,12 @@ export const signup = async (req, res) => {
     });
 
     // Xoá bỏ password trước khi gửi lại thông báo phía client
-    const token = jwt.sign({ _id: user._id }, "123456", { expiresIn: "1d" });
+    // const token = jwt.sign({ _id: user._id }, "123456", { expiresIn: "1d" });
     user.password = undefined;
     return res.status(201).json({
       message: "User created successfully",
       user,
-      accessToken: token,
+      // accessToken: token,
     });
   } catch (error) {
     return res.status(400).json({
@@ -74,7 +74,7 @@ export const signin = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
-        message: "Khong dung mat khau",
+        message: "Không đúng mật khẩu",
       });
     }
     const token = jwt.sign({ _id: user._id }, "123456", {

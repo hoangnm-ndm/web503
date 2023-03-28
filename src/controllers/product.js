@@ -95,7 +95,6 @@ export const updatePatch = async function (req, res) {
     });
   }
 };
-
 export const remove = async function (req, res) {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
