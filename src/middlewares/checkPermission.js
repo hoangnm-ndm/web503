@@ -1,5 +1,14 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user";
+
+/**
+ * B1: Check xem user có đăng nhập hay không bằng cách check xem có Autho không?
+ * B2: Lấy jwt từ autho
+ * B3: Lấy _id từ jwt
+ * B4: Lấy user từ database với _id đã tìm được
+ * B5: Check role của user đã lấy được (nếu là admin -> next, không phải admin -> throw Errors)
+ *
+ */
 export const checkPermission = async (req, res, next) => {
   try {
     // kiểm tra xem user có đăng nhập không
@@ -17,13 +26,11 @@ export const checkPermission = async (req, res, next) => {
     if (user.role != "admin") {
       throw new Error("Bạn không có quyền để thực hiện hành động này");
     }
-
-    console.log("user", user);
     // lưu thông tin user vào request để sử dụng cho các middleware khác
     req.user = user;
 
     next();
   } catch (error) {
-    res.status(401).json({ message: error.message });
+    res.status(401).json({ message: error });
   }
 };
