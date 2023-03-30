@@ -30,7 +30,7 @@ export const signup = async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = jwt.sign({ id: user._id }, "banThayDat", { expiresIn: "1d" });
+    const token = jwt.sign({ id: user._id }, "123456", { expiresIn: "1d" });
     user.password = undefined;
     return res.status(201).json({
       message: "Tạo tài khoản thành công",

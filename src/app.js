@@ -1,5 +1,6 @@
 import express from "express";
 import routerProduct from "./routes/product.js";
+import routerAuth from "./routes/auth.js";
 import mongoose from "mongoose";
 
 import dotenv from "dotenv";
@@ -11,6 +12,7 @@ app.use(express.json());
 mongoose.connect(`${process.env.URI_DB}`);
 
 app.use("/api", routerProduct);
+app.use("/api", routerAuth);
 export const viteNodeApp = app;
 
 // app.listen(process.env.PORT, () => {
