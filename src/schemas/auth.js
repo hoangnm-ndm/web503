@@ -11,15 +11,15 @@ export const userSchema = Joi.object({
     "any.required": "Truong email la bat buoc",
   }),
   password: Joi.string().required().min(6).messages({
-    "string.empty": "Truong mat khau khong duoc de trong",
+    "any.empty": "Truong mat khau khong duoc de trong",
     "string.min": "Truong mat khau can co it nhat 6 ky tu",
     "any.required": "truong mat khau la bat buoc",
   }),
 
-  confirmPassword: Joi.string().required().min(6).valid(joi.ref).messages({
-    "string.empty": "Truong mat khau khong duoc de trong",
+  confirmPassword: Joi.string().required().valid(Joi.ref("password")).messages({
+    "any.empty": "Truong mat khau khong duoc de trong",
     "string.min": "Truong mat khau can co it nhat 6 ky tu",
-    "any.required": "truong mat khau la bat buoc",
-    "string.valid": "Mat khau khong khop",
+    "any.required": "Truong mat khau la bat buoc",
+    "any.valid": "Mat khau khong khop",
   }),
 });

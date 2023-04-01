@@ -21,6 +21,10 @@ export const getAll = async (req, res) => {
 
 export const getDetail = async (req, res) => {
   try {
+    // const { data: product } = await axios.get(
+    //   `${process.env.API_URI}/${req.params.id}`
+    // );
+
     const product = await Product.findById(req.params.id);
     if (!product) {
       res.send({
@@ -37,6 +41,11 @@ export const getDetail = async (req, res) => {
 
 export const create = async (req, res) => {
   try {
+    // const { data: product } = await axios.post(
+    //   `${process.env.API_URI}/products/`,
+    //   req.body
+    // );
+
     const { error } = productSchema.validate(req.body);
     if (error) {
       return res.status(400).json({
@@ -64,6 +73,11 @@ export const create = async (req, res) => {
 
 export const update = async (req, res) => {
   try {
+    // const { data: product } = await axios.put(
+    //   `${process.env.API_URI}/products/${req.params.id}`,
+    //   req.body
+    // );
+
     const { error } = productSchema.validate(req.body);
     if (error) {
       return res.status(400).json({
@@ -89,6 +103,7 @@ export const update = async (req, res) => {
 
 export const remove = async (req, res) => {
   try {
+    // await axios.delete(`${process.env.API_URI}/products/${req.params.id}`);
     const product = Product.findOneAndDelete(req.params.id);
     if (product) {
       return res.send({

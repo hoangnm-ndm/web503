@@ -5,7 +5,7 @@ import {
   create,
   update,
   remove,
-} from "../controllers/product.js";
+} from "../controllers/category";
 const router = express.Router();
 
 router.get("/", getAll);
