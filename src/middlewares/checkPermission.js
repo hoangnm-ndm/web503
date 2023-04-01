@@ -13,27 +13,40 @@ const { SECRET_CODE } = process.env;
  *  -> Nếu không có quyền admin thì throw error
  */
 export const checkPermission = async (req, res, next) => {
-  const token =
-    req.headers.authorization && req.headers.authorization.split(" ")[1];
-  console.log(token);
-  jwt.verify(token, SECRET_CODE, function (err, payload) {
-    if (err) {
-      if (err.name === "JsonWebTokenError") {
-        return res.status(400).json({
-          message: err.message,
+  try {
+    const token =
+      req.headers.authorization && req.headers.authorization.split(" ")[1];
+    console.log(token);
+    jwt.verify(token, SECRET_CODE, async (err, payload) => {
+      if (err) {
+        if (err.name === "JsonWebTokenError") {
+          return res.status(400).json({
+            message: err.message,
+          });
+        }
+        if (err.name === "TokenExpiredError") {
+          return res.status(400).json({
+            message: err.message,
+          });
+        }
+      }
+      // lấy thông tin user từ database
+      const user = await User.findById(payload.id);
+      console.log("user: ", user);
+      // kiểm tra xem user có đủ quyền để thực hiện hành động đó không
+      if (user.role != "admin") {
+        return res.json({
+          message: "Bạn không có quyền để thực hiện hành động này",
         });
       }
-      if (err.name === "TokenExpiredError") {
-        return res.status(400).json({
-          message: err.message,
-        });
-      }
-    }
-    console.log(payload);
-    const user = User.findById(payload.id);
-    const user2 = User.findOne({ _id: payload.id });
-    console.log(user, user2);
-  });
+      // lưu thông tin user vào request để sử dụng trong các middleware khác
+      req.user = user;
 
-  next();
+      next();
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Loi Server",
+    });
+  }
 };
