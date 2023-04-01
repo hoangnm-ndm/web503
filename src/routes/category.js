@@ -5,7 +5,7 @@ import {
   getAll,
   remove,
   updatePatch,
-} from "../controllers/product.js";
+} from "../controllers/category.js";
 import { checkPermission } from "../middlewares/checkPermission.js";
 const router = express.Router();
 

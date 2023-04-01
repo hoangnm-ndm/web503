@@ -1,11 +1,4 @@
-import Joi from "joi";
-import Product from "../models/product.js";
-
-const productSchema = Joi.object({
-  name: Joi.string().required(),
-  price: Joi.number().required(),
-  description: Joi.string(),
-});
+import Product from "../models/product";
 
 export const getAll = async (req, res) => {
   try {
