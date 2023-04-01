@@ -1,45 +1,30 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import dotenv from "dotenv";
+dotenv.config();
+const { SECRET_CODE } = process.env;
 export const checkPermission = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  const token = authHeader && authHeader.split(" ")[1];
-  if (!authHeader) {
-    return res.status(401).json({
-      message: "Ban chua dang nhap!",
-    });
-  }
+  const token =
+    req.headers.authorization && req.headers.authorization.split(" ")[1];
   console.log(token);
-
-  jwt.verify(token, "123456", function (err, decoded) {
-    console.log(err);
-    console.log(decoded);
+  jwt.verify(token, SECRET_CODE, function (err, payload) {
+    if (err) {
+      if (err.name === "JsonWebTokenError") {
+        return res.status(400).json({
+          message: err.message,
+        });
+      }
+      if (err.name === "TokenExpiredError") {
+        return res.status(400).json({
+          message: err.message,
+        });
+      }
+    }
+    console.log(payload);
+    const user = User.findById(payload.id);
+    const user2 = User.findOne({ _id: payload.id });
+    console.log(user, user2);
   });
 
   next();
-
-  // jwt.verify(token, "123456", async (err, payload) => {
-  //   console.log(payload);
-  // if (err === "JsonWebTokenError") {
-  //   return res.status(400).json({
-  //     message: "Token không hợp lệ",
-  //   });
-  // }
-
-  // if (err === "TokenExpireError") {
-  //   return res.status(400).json({
-  //     message: "Token hết hạn",
-  //   });
-  // }
-
-  // const user = await User.findById(payload.id);
-  // console.log(user);
-  // if (user.role !== "admin") {
-  //   return res.status(400).json({
-  //     message: "Bạn không có quyền này!!!",
-  //   });
-  // }
-
-  // next();
-  // });
 };

@@ -2,6 +2,10 @@ import User from "../models/user";
 import { signinSchema, signupSchema } from "../schemas/auth";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+
+const { SECRET_CODE } = process.env;
 
 export const signup = async (req, res) => {
   try {
@@ -71,14 +75,18 @@ export const signin = async (req, res) => {
         messages: "Sai mật khẩu",
       });
     }
-    const token = jwt.sign({ id: user._id }, "banThayDat", { expiresIn: "1d" });
+    const token = jwt.sign({ id: user._id }, SECRET_CODE, { expiresIn: "1d" });
     user.password = undefined;
     return res.status(200).json({
       message: "Đăng nhập thành công",
       accessToken: token,
       user,
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({
+      message: "Loi server!",
+    });
+  }
 };
 // Đăng nhập
 // B1: Kiểm tra thông tin req.body có hợp lệ hay không
