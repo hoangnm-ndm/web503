@@ -2,7 +2,11 @@ import User from "../models/user.js";
 import { signupSchema, signinSchema } from "../schemas/auth.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
+dotenv.config();
+
+const { SECRET_CODE } = process.env;
 /**
  * B1: lấy ra req.body và dùng Joi validation
  * B2: Nếu validate lỗi thì trả về lỗi.
@@ -86,7 +90,7 @@ export const signin = async (req, res) => {
         message: "Không đúng mật khẩu",
       });
     }
-    const token = jwt.sign({ _id: user._id }, "123456", {
+    const token = jwt.sign({ _id: user._id }, SECRET_CODE, {
       expiresIn: "1d",
     });
 
