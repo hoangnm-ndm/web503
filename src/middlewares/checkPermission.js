@@ -20,7 +20,9 @@ export const checkPermission = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
 
     // xác thực jwt token
-    const { _id } = jwt.verify(token, "123456");
+    const { _id } = jwt.verify(token, "123456", async (err, payload) => {
+      console.log(err);
+    });
     const user = await User.findById(_id);
     // kiểm tra xem user có quyền admin không
     if (user.role != "admin") {

@@ -4,20 +4,20 @@ import dotenv from "dotenv";
 import cors from "cors";
 import router from "./routes/index.js";
 
+//config
 const app = express();
-dotenv.config();
-app.use(cors());
-
 const API_DB = process.env.API_DB;
+dotenv.config();
+
+// middleware
+app.use(cors());
 app.use(express.json());
 
+// router
 app.use("/api", router);
 
+// database config
 mongoose.connect(API_DB);
-// app.listen(PORT, () => {
-//   console.log(`Server is running on: ${PORT}`);
-// });
-
 export const viteNodeApp = app;
 
 /**
