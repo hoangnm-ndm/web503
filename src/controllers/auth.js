@@ -86,7 +86,6 @@ export const signin = async (req, res) => {
         message: "Tai khoan khong ton tai!",
       });
     }
-    console.log(user);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
