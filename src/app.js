@@ -1,5 +1,5 @@
 import express from "express";
-import routerProduct from "./routes/product.js";
+import router from "./routes/index";
 import mongoose from "mongoose";
 
 import dotenv from "dotenv";
@@ -13,7 +13,7 @@ mongoose.connect(`${process.env.API_DB}`);
 // const kitty = new Cat({ name: "Zildjian" });
 // kitty.save().then(() => console.log("meow"));
 
-app.use("/api", routerProduct);
+app.use("/api", router);
 
 export const viteNodeApp = app;
 // app.listen(process.env.PORT, () => {
