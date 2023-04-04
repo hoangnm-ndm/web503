@@ -1,5 +1,5 @@
 import { signinSchema, signupSchema } from "../schemas/auth.js";
-import { bcrypt } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -18,12 +18,11 @@ export const signup = async (req, res) => {
     }
 
     const haveEmail = await User.findOne({ email });
-    if (haveEmail) {
+    if (!haveEmail) {
       return res.status(400).json({
         message: "Email nay da dk dang ky",
       });
     }
-
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       ...req.body,
@@ -65,7 +64,7 @@ export const signin = async (req, res) => {
         message: "Tài khoản không tồn tại!",
       });
     }
-    const checkPassword = await bcrypt.campare(password, haveUser.password);
+    const checkPassword = await bcrypt.compare(password, haveUser.password);
     if (!checkPassword) {
       return res.status(400).json({
         message: "Mật khẩu không khớp!",
@@ -73,7 +72,7 @@ export const signin = async (req, res) => {
     }
     const token = jwt.sign(
       {
-        id: haveEmail._id,
+        id: haveUser._id,
       },
       SECRET_CODE,
       (error, token) => {

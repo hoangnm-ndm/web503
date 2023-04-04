@@ -27,6 +27,7 @@ export const get = async (req, res) => {
     }
     return res.status(200).json({
       message: "Product found",
+      product,
     });
   } catch (error) {
     return res.status(500).json({
@@ -61,7 +62,6 @@ export const create = async (req, res) => {
 };
 export const remove = async (req, res) => {
   try {
-    // await axios.delete(`${process.env.API_URI}/${req.params.id}`);
     const product = await Product.findByIdAndDelete(req.params.id);
     return res.status(200).json({
       message: "Sản phẩm đã được xóa thành công",

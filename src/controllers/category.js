@@ -25,7 +25,8 @@ export const get = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: "Category found",
+      message: "Tìm danh mục sản phẩm thành công!",
+      data: category,
     });
   } catch (error) {
     return res.status(500).json({
@@ -60,7 +61,6 @@ export const create = async (req, res) => {
 };
 export const remove = async (req, res) => {
   try {
-    // await axios.delete(`${process.env.API_URI}/${req.params.id}`);
     const category = await Category.findByIdAndDelete(req.params.id);
     return res.status(200).json({
       message: "Category đã được xóa thành công",
