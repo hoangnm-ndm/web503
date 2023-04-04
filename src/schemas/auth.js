@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const userSchema = Joi.object({
+export const signupSchema = Joi.object({
   name: Joi.string().required().messages({
     "string.empty": "Name không được bỏ trống",
     "any.required": "Name là trường bắt buộc",
@@ -21,5 +21,18 @@ export const userSchema = Joi.object({
     "string.min": "Truong mat khau can co it nhat 6 ky tu",
     "any.required": "Truong mat khau la bat buoc",
     "any.valid": "Mat khau khong khop",
+  }),
+});
+
+export const signinSchema = Joi.object({
+  email: Joi.string().email().required().messages({
+    "string.empty": "Truong email khong duoc de trong",
+    "string.email": "Email khong dung dinh dang",
+    "any.required": "Truong email la bat buoc",
+  }),
+  password: Joi.string().required().min(6).messages({
+    "any.empty": "Truong mat khau khong duoc de trong",
+    "string.min": "Truong mat khau can co it nhat 6 ky tu",
+    "any.required": "truong mat khau la bat buoc",
   }),
 });
