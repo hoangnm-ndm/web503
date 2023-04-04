@@ -1,18 +1,12 @@
 import express from "express";
-import {
-  create,
-  get,
-  getAll,
-  remove,
-  update,
-} from "../controllers/category.js";
-import { checkPermision } from "../middlewares/checkPermisionForAdmin";
+import { create, get, getAll, remove, update } from "../controllers/category";
+import { checkPermission } from "../middlewares/checkPermision";
 const router = express.Router();
 
 router.get("/", getAll);
 router.get("/:id", get);
-router.post("/", checkPermision, create);
-router.delete("/:id", checkPermision, remove);
-router.patch("/:id", checkPermision, update);
+router.post("/", checkPermission, create);
+router.delete("/:id", checkPermission, remove);
+router.patch("/:id", checkPermission, update);
 
 export default router;

@@ -1,11 +1,12 @@
 import express from "express";
 import { create, get, getAll, remove, update } from "../controllers/product.js";
+import { checkPermission } from "../middlewares/checkPermision";
 const router = express.Router();
 
 router.get("/", getAll);
 router.get("/:id", get);
-router.post("/", create);
-router.delete("/:id", remove);
-router.patch("/:id", update);
+router.post("/", checkPermission, create);
+router.delete("/:id", checkPermission, remove);
+router.patch("/:id", checkPermission, update);
 
 export default router;

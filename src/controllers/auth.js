@@ -23,6 +23,7 @@ export const signup = async (req, res) => {
         message: "Email nay da dk dang ky",
       });
     }
+
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       ...req.body,
@@ -75,10 +76,9 @@ export const signin = async (req, res) => {
         id: haveUser._id,
       },
       SECRET_CODE,
-      (error, token) => {
-        console.log(token);
-      }
+      { expiresIn: "1d" }
     );
+    console.log("token:", token);
 
     haveUser.password = undefined;
     return res.status(200).json({
