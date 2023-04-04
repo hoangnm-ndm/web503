@@ -1,15 +1,18 @@
 import Category from "../models/category.js";
-import categorySchema from "../schemas/category";
+import categorySchema from "../schemas/category.js";
 
 export const getAll = async (req, res) => {
   try {
-    const categorys = await Category.find();
-    if (categorys.length === 0) {
-      return res.json({
+    const categories = await Category.find();
+    if (categories.length === 0) {
+      return res.status(200).json({
         message: "Không có category nào",
       });
     }
-    return res.json(categorys);
+    return res.status(200).json({
+      message: "Lay danh sach thanh cong",
+      datas: categories,
+    });
   } catch (error) {
     return res.status(400).json({
       message: error,
@@ -24,7 +27,10 @@ export const get = async function (req, res) {
         message: "Không có category nào",
       });
     }
-    return res.json(category);
+    return res.json({
+      message: "Lay category thanh cong!",
+      datas: category,
+    });
   } catch (error) {
     return res.status(400).json({
       message: error,

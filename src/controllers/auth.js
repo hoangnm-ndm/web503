@@ -84,7 +84,7 @@ export const signin = async (req, res) => {
         message: "Tài khoản không tồn tại",
       });
     }
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
       return res.status(400).json({
         message: "Không đúng mật khẩu",
