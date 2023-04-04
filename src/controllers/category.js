@@ -3,7 +3,6 @@ import categorySchema from "../schemas/category";
 
 export const getAll = async (req, res) => {
   try {
-    // const { data: categorys } = await axios.get(`${API_URI}/categorys`);
     const categorys = await Category.find();
     if (categorys.length === 0) {
       return res.json({
@@ -19,10 +18,7 @@ export const getAll = async (req, res) => {
 };
 export const get = async function (req, res) {
   try {
-    // const { data: category } = await axios.get(`${API_URI}/categorys/${req.params.id}`);
     const category = await Category.findById(req.params.id);
-    // const category = await Category.findOne({ _id: req.params.id });
-
     if (!category) {
       return res.json({
         message: "Không có category nào",
@@ -67,7 +63,6 @@ export const updatePatch = async function (req, res) {
         message: error.details[0].message,
       });
     }
-    // const { data: category } = await axios.post(`${API_URI}/categorys`, req.body);
     const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
