@@ -64,12 +64,8 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   try {
+    const { error } = signinSchema.validate(req.body, { abortEarly: false });
     const { email, password } = req.body;
-
-    const { error } = signinSchema.validate(
-      { email, password },
-      { abortEarly: false }
-    );
 
     if (error) {
       const errors = error.details.map((err) => err.message);
