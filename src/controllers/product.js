@@ -9,7 +9,10 @@ export const getAll = async (req, res) => {
         message: "Không có sản phẩm nào",
       });
     }
-    return res.json(products);
+    return res.status(200).json({
+      message: "Lay danh sach san pham thanh cong!",
+      datas: products,
+    });
   } catch (error) {
     return res.status(400).json({
       message: error,
@@ -27,7 +30,10 @@ export const get = async function (req, res) {
         message: "Không có sản phẩm nào",
       });
     }
-    return res.json(product);
+    return res.status(200).json({
+      message: "Lay san pham thanh cong!",
+      datas: product,
+    });
   } catch (error) {
     return res.status(400).json({
       message: error,
