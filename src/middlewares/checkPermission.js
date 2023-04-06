@@ -6,7 +6,6 @@ dotenv.config();
 const { SECRET_CODE } = process.env;
 export const checkPermission = async (req, res, next) => {
   try {
-    console.log(req.headers.authorization);
     const token =
       req.headers.authorization && req.headers.authorization.split(" ")[1]; // ["Bearer", "token"]
     if (!token) {
@@ -30,9 +29,7 @@ export const checkPermission = async (req, res, next) => {
         }
       }
 
-      console.log(decoded);
       const user = await User.findById(decoded.id);
-      console.log(user);
 
       if (user.role !== "admin") {
         return res.status(400).json({

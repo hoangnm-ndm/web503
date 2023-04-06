@@ -41,23 +41,26 @@ export const create = async (req, res) => {
     if (error) {
       return res.status(400).json({
         message: error.details[0].message,
+        datas: [],
       });
     }
 
     const product = await Product.create(req.body);
 
     if (!product) {
-      res.send({
-        messenger: "Thêm sản phẩm thất bại",
+      return res.status(400).json({
+        message: "Thêm sản phẩm thất bại",
+        datas: [],
       });
     }
     return res.status(200).json({
       message: "Thêm sản phẩm thành công",
-      data: product,
+      data: [product],
     });
   } catch (error) {
-    res.status(400).send({
-      messenger: error,
+    return res.status(400).json({
+      message: "Loi server",
+      datas: [],
     });
   }
 };
@@ -68,6 +71,7 @@ export const update = async (req, res) => {
     if (error) {
       return res.status(400).json({
         message: error.details[0].message,
+        datas: [],
       });
     }
 
@@ -75,14 +79,19 @@ export const update = async (req, res) => {
       new: true,
     });
     if (!product) {
-      res.send({
+      return res.send({
         messenger: "Cập nhật sản phẩm thất bại",
+        datas: [],
       });
     }
-    return res.status(200).json(product);
+    return res.status(200).json({
+      message: "Cap nhat san pham thanh cong!",
+      datas: [product],
+    });
   } catch (error) {
-    res.status(500).send({
-      messenger: error,
+    return res.status(500).send({
+      message: "Loi server",
+      datas: [],
     });
   }
 };
@@ -91,13 +100,15 @@ export const remove = async (req, res) => {
   try {
     const product = Product.findOneAndDelete(req.params.id);
     if (product) {
-      return res.send({
-        messenger: "Xoá sản phẩm thành công!",
+      return res.status(200).json({
+        message: "Xoá sản phẩm thành công!",
+        datas: [],
       });
     }
   } catch (error) {
-    res.send({
-      messenger: error,
+    return res.status(200).json({
+      message: "Loi server",
+      datas: [],
     });
   }
 };

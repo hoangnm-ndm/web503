@@ -65,8 +65,8 @@ export const create = async (req, res) => {
       data: product,
     });
   } catch (error) {
-    res.status(400).send({
-      messenger: error,
+    return res.status(400).json({
+      message: "Loi Server",
     });
   }
 };
