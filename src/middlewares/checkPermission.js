@@ -38,7 +38,7 @@ export const checkPermission = async (req, res, next) => {
       const user = await User.findById(payload.id);
       if (!user) {
         return res.status(400).json({
-          message: "Ban chua dang nhap",
+          message: "User khong ton tai trong he thong",
         });
       }
       // kiểm tra xem user có đủ quyền để thực hiện hành động đó không
