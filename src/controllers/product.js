@@ -1,5 +1,6 @@
 import Product from "../models/product.js";
 import productSchema from "../schemas/product";
+import Category from "../models/category";
 
 export const getAll = async (req, res) => {
   try {
@@ -50,7 +51,14 @@ export const create = async function (req, res) {
       });
     }
     const product = await Product.create(req.body);
-
+    const addCate = await Category.findByIdAndUpdate(product.categoryId, {
+      $addToSet: { products: product._id },
+    });
+    if (!addCate) {
+      return res.status(400).json({
+        message: "Them danh muc cho san pham khong thanh cong!",
+      });
+    }
     if (!product) {
       return res.json({
         message: "Thêm sản phẩm không thành công!",
