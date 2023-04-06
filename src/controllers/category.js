@@ -33,10 +33,9 @@ export const create = async (req, res) => {
   try {
     const { error } = categorySchema.validate(req.body);
     if (error) {
-      console.log(error);
-      // return res.status(400).json({
-      //   message: error,
-      // });
+      return res.status(400).json({
+        message: "Loi validation",
+      });
     }
     const category = await Category.create(req.body);
     if (!category) {
