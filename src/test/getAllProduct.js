@@ -6,7 +6,7 @@ describe("GET /products", () => {
     chai
       .request(viteNodeApp)
       .get(`/api/products`)
-      .set("Authorization", "Bearer asdfghjk")
+      // .set("Authorization", "Bearer asdfghjk")
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.an("object");

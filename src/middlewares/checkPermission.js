@@ -12,7 +12,6 @@ export const checkPermission = async (req, res, next) => {
         message: "Bạn chưa đăng nhập",
       });
     }
-    SECRET_CODE;
     const token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, SECRET_CODE, async (error, payload) => {
       if (error) {
@@ -27,7 +26,7 @@ export const checkPermission = async (req, res, next) => {
           });
         }
       }
-      const user = await User.findById(payload.id);
+      const user = await User.findById(payload._id);
       if (user && user.role !== "admin") {
         return res.status(403).json({
           message: "Bạn không có quyền truy cập tài nguyên!",

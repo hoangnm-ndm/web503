@@ -6,7 +6,7 @@ describe("GET /categories", () => {
     chai
       .request(viteNodeApp)
       .get(`/api/categories`)
-      .set("Authorization", "Bearer asdfghjk")
+      // .set("Authorization", "Bearer asdfghjk")
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.an("object");

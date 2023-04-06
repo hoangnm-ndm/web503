@@ -1,9 +1,9 @@
 import Product from "../models/product.js";
+import productSchema from "../schemas/product";
 
 export const getAll = async (req, res) => {
   try {
-    // const { data: products } = await axios.get(`${API_URI}/products`);
-    const products = await Product.find();
+    const products = await Product.find().populate("categoryId");
     if (products.length === 0) {
       return res.json({
         message: "Không có sản phẩm nào",
@@ -21,9 +21,9 @@ export const getAll = async (req, res) => {
 };
 export const get = async function (req, res) {
   try {
-    // const { data: product } = await axios.get(`${API_URI}/products/${req.params.id}`);
-    const product = await Product.findById(req.params.id);
-    // const product = await Product.findOne({ _id: req.params.id });
+    const product = await Product.findById(req.params.id).populate(
+      "categoryId"
+    );
 
     if (!product) {
       return res.json({
@@ -43,27 +43,27 @@ export const get = async function (req, res) {
 export const create = async function (req, res) {
   try {
     const { error } = productSchema.validate(req.body);
+
     if (error) {
       return res.status(400).json({
         message: error.details[0].message,
       });
     }
-    // const { data: product } = await axios.post(`${API_URI}/products`, req.body);
-    // const kitty = new Cat({ name: "Zildjian" });
-    // const myObject = new Object({})
     const product = await Product.create(req.body);
+
     if (!product) {
       return res.json({
         message: "Thêm sản phẩm không thành công!",
       });
     }
-    return res.json({
+    return res.status(200).json({
       message: "Thêm sản phẩm thành công",
-      data: product,
+      datas: product,
     });
   } catch (error) {
     return res.status(400).json({
       message: error,
+      datas: [],
     });
   }
 };
@@ -80,13 +80,13 @@ export const updatePatch = async function (req, res) {
       new: true,
     });
     if (!product) {
-      return res.json({
+      return res.status(400).json({
         message: "Cập nhật sản phẩm không thành công",
       });
     }
-    return res.json({
+    return res.status(200).json({
       message: "Cập nhật sản phẩm thành công",
-      data: product,
+      datas: product,
     });
   } catch (error) {
     return res.status(400).json({

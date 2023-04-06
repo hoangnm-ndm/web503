@@ -3,7 +3,7 @@ import categorySchema from "../schemas/category.js";
 
 export const getAll = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const categories = await Category.find().populate("products");
     if (categories.length === 0) {
       return res.status(200).json({
         message: "Không có category nào",
@@ -21,7 +21,9 @@ export const getAll = async (req, res) => {
 };
 export const get = async function (req, res) {
   try {
-    const category = await Category.findById(req.params.id);
+    const category = await Category.findById(req.params.id).populate(
+      "products"
+    );
     if (!category) {
       return res.json({
         message: "Không có category nào",
