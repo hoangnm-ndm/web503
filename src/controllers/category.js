@@ -1,118 +1,127 @@
 import dotenv from "dotenv";
-import Product from "../models/product.js";
-import { productSchema } from "../schemas/product";
+import Category from "../models/category.js";
+import { categorySchema } from "../schemas/category.js";
 dotenv.config();
 
 export const getAll = async (req, res) => {
   try {
-    const products = await Product.find();
-    if (products.length === 0) {
-      res.send({
-        messenger: "Danh sách sản phẩm trống!",
+    const categories = await Category.find();
+    if (categories.length === 0) {
+      return res.status(400).json({
+        message: "Danh sách danh muc trống!",
+        datas: [],
       });
     }
-    return res.status(200).json(products);
+    return res.status(200).json({
+      message: "Lay danh sach danh muc thanh cong!",
+      datas: [...categories],
+    });
   } catch (error) {
-    res.status(500).send({
-      messenger: error,
+    return res.status(500).json({
+      message: "Loi server",
+      datas: [],
     });
   }
 };
 
 export const getDetail = async (req, res) => {
   try {
-    // const { data: product } = await axios.get(
-    //   `${process.env.API_URI}/${req.params.id}`
-    // );
-
-    const product = await Product.findById(req.params.id);
-    if (!product) {
-      res.send({
-        messenger: "Sản phẩm không tồn tại",
+    const category = await Category.findById(req.params.id);
+    if (!category) {
+      return res.status(400).json({
+        message: "Danh muc không tồn tại",
+        datas: [],
       });
     }
-    return res.status(200).json(product);
+    return res.status(200).json({
+      message: "Tim danh muc thanh cong",
+      datas: [category],
+    });
   } catch (error) {
-    res.status(500).send({
-      messenger: error,
+    return res.status(500).json({
+      message: "Loi server",
+      datas: [],
     });
   }
 };
 
 export const create = async (req, res) => {
   try {
-    // const { data: product } = await axios.post(
-    //   `${process.env.API_URI}/products/`,
-    //   req.body
-    // );
-
-    const { error } = productSchema.validate(req.body);
+    const { error } = categorySchema.validate(req.body);
     if (error) {
       return res.status(400).json({
         message: error.details[0].message,
+        datas: [],
       });
     }
 
-    const product = await Product.create(req.body);
+    const category = await Category.create(req.body);
 
-    if (!product) {
-      res.send({
-        messenger: "Thêm sản phẩm thất bại",
+    if (!category) {
+      return res.status(400).json({
+        message: "Thêm danh muc thất bại",
+        datas: [],
       });
     }
     return res.status(200).json({
-      message: "Thêm sản phẩm thành công",
-      data: product,
+      message: "Thêm danh muc thành công",
+      data: [category],
     });
   } catch (error) {
     return res.status(400).json({
       message: "Loi Server",
+      datas: [],
     });
   }
 };
 
 export const update = async (req, res) => {
   try {
-    // const { data: product } = await axios.put(
-    //   `${process.env.API_URI}/products/${req.params.id}`,
-    //   req.body
-    // );
-
-    const { error } = productSchema.validate(req.body);
+    const { error } = categorySchema.validate(req.body);
     if (error) {
       return res.status(400).json({
         message: error.details[0].message,
+        datas: [],
       });
     }
 
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    if (!product) {
-      res.send({
-        messenger: "Cập nhật sản phẩm thất bại",
+    if (!category) {
+      return res.status(400).json({
+        messenger: "Cập nhật danh muc thất bại",
       });
     }
-    return res.status(200).json(product);
+    return res.status(200).json({
+      message: "Cap nhat danh muc thanh cong",
+      datas: [category],
+    });
   } catch (error) {
-    res.status(500).send({
-      messenger: error,
+    return res.status(500).json({
+      message: error,
+      datas: [],
     });
   }
 };
 
 export const remove = async (req, res) => {
   try {
-    // await axios.delete(`${process.env.API_URI}/products/${req.params.id}`);
-    const product = Product.findOneAndDelete(req.params.id);
-    if (product) {
+    const category = Category.findOneAndDelete(req.params.id);
+    if (!category) {
       return res.send({
-        messenger: "Xoá sản phẩm thành công!",
+        message: "Xoá danh muc that bai!",
+        datas: [],
       });
     }
+    return res.send({
+      message: "Xoá thanh cong that bai!",
+      datas: [],
+    });
   } catch (error) {
-    res.send({
-      messenger: error,
+    return res.status(500).json({
+      message: "Loi server",
+      datas: [],
     });
   }
 };

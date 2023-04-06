@@ -6,8 +6,12 @@ dotenv.config();
 const { SECRET_CODE } = process.env;
 export const checkPermission = async (req, res, next) => {
   try {
-    const token =
-      req.headers.authorization && req.headers.authorization.split(" ")[1]; // ["Bearer", "token"]
+    if (!req.headers.authorization) {
+      return res.status(400).json({
+        message: "Ban chua dang nhap!",
+      });
+    }
+    const token = req.headers.authorization.split(" ")[1];
     if (!token) {
       return res.status(400).json({
         message: "Ban khong phai la thanh vien cua he thong!",
@@ -30,6 +34,12 @@ export const checkPermission = async (req, res, next) => {
       }
 
       const user = await User.findById(decoded.id);
+
+      if (!user) {
+        return res.status(400).json({
+          message: "Khong tim thay user",
+        });
+      }
 
       if (user.role !== "admin") {
         return res.status(400).json({
