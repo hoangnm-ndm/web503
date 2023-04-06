@@ -12,7 +12,7 @@ export const getAll = async (req, res) => {
     }
     return res.status(200).json({
       message: "Lay danh sach san pham thanh cong!",
-      datas: products,
+      datas: [...products],
     });
   } catch (error) {
     return res.status(400).json({
@@ -29,15 +29,17 @@ export const get = async function (req, res) {
     if (!product) {
       return res.json({
         message: "Không có sản phẩm nào",
+        datas: [],
       });
     }
     return res.status(200).json({
       message: "Lay san pham thanh cong!",
-      datas: product,
+      datas: [product],
     });
   } catch (error) {
     return res.status(400).json({
       message: error,
+      datas: [],
     });
   }
 };
@@ -48,6 +50,7 @@ export const create = async function (req, res) {
     if (error) {
       return res.status(400).json({
         message: error.details[0].message,
+        datas: [],
       });
     }
     const product = await Product.create(req.body);
@@ -57,16 +60,18 @@ export const create = async function (req, res) {
     if (!addCate) {
       return res.status(400).json({
         message: "Them danh muc cho san pham khong thanh cong!",
+        datas: [],
       });
     }
     if (!product) {
       return res.json({
         message: "Thêm sản phẩm không thành công!",
+        datas: [],
       });
     }
     return res.status(200).json({
       message: "Thêm sản phẩm thành công",
-      datas: product,
+      datas: [product],
     });
   } catch (error) {
     return res.status(400).json({
@@ -81,24 +86,26 @@ export const updatePatch = async function (req, res) {
     if (error) {
       return res.status(400).json({
         message: error.details[0].message,
+        datas: [],
       });
     }
-    // const { data: product } = await axios.post(`${API_URI}/products`, req.body);
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     if (!product) {
       return res.status(400).json({
         message: "Cập nhật sản phẩm không thành công",
+        datas: [],
       });
     }
     return res.status(200).json({
       message: "Cập nhật sản phẩm thành công",
-      datas: product,
+      datas: [product],
     });
   } catch (error) {
     return res.status(400).json({
       message: error,
+      datas: [],
     });
   }
 };
@@ -107,11 +114,12 @@ export const remove = async function (req, res) {
     const product = await Product.findByIdAndDelete(req.params.id);
     return res.json({
       message: "Xóa sản phẩm thành công",
-      product,
+      datas: [product],
     });
   } catch (error) {
     return res.status(400).json({
       message: error,
+      datas: [],
     });
   }
 };
