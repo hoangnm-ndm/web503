@@ -2,7 +2,7 @@ import Product from "../models/product.js";
 
 export const getAll = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().populate("categoryId");
     if (products.length === 0) {
       res.send({
         messenger: "Danh sách sản phẩm trống",
@@ -16,7 +16,9 @@ export const getAll = async (req, res) => {
 
 export const getDetail = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate(
+      "categoryId"
+    );
     if (!product) {
       res.send({
         messenger: "Không tìm thấy sản phẩm",

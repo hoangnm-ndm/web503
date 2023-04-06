@@ -14,34 +14,36 @@ const { SECRET_CODE } = process.env;
  */
 export const checkPermission = async (req, res, next) => {
   try {
-    const token =
-      req.headers.authorization && req.headers.authorization.split(" ")[1];
-    console.log(token);
+    const autho = req.headers.authorization;
+    if (!autho) {
+      return res.status(400).json({
+        message: "Ban chua dang nhap!",
+      });
+    }
+    const token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, SECRET_CODE, async (err, payload) => {
       if (err) {
         if (err.name === "JsonWebTokenError") {
           return res.status(400).json({
-            message: err.message,
+            message: "Token loi",
           });
         }
         if (err.name === "TokenExpiredError") {
           return res.status(400).json({
-            message: err.message,
+            message: "Token het han",
           });
         }
       }
       // lấy thông tin user từ database
       const user = await User.findById(payload.id);
-      console.log("user: ", user);
       // kiểm tra xem user có đủ quyền để thực hiện hành động đó không
-      if (user.role != "admin") {
-        return res.json({
+      if (user.role !== "admin") {
+        return res.status(400).json({
           message: "Bạn không có quyền để thực hiện hành động này",
         });
       }
       // lưu thông tin user vào request để sử dụng trong các middleware khác
       req.user = user;
-
       next();
     });
   } catch (error) {

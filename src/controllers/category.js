@@ -1,4 +1,5 @@
 import Category from "../models/category";
+import { categorySchema } from "../schemas/category.js";
 
 export const getAll = async (req, res) => {
   try {
@@ -30,8 +31,13 @@ export const getDetail = async (req, res) => {
 
 export const create = async (req, res) => {
   try {
-    const validate = categorySchema.validate(req.body);
-    console.log("validate: ", validate);
+    const { error } = categorySchema.validate(req.body);
+    if (error) {
+      console.log(error);
+      // return res.status(400).json({
+      //   message: error,
+      // });
+    }
     const category = await Category.create(req.body);
     if (!category) {
       res.send({
