@@ -78,8 +78,6 @@ export const signin = async (req, res) => {
       SECRET_CODE,
       { expiresIn: "1d" }
     );
-    console.log("token:", token);
-
     haveUser.password = undefined;
     return res.status(200).json({
       message: "Đăng nhập thành công!",

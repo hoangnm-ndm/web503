@@ -3,7 +3,6 @@ import productSchema from "../schemas/product";
 
 export const getAll = async (req, res) => {
   try {
-    // const { data: products } = await axios.get(`${PORT}`);
     const products = await Product.find();
     if (products.length === 0) {
       res.status(404).json({
