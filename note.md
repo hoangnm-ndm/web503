@@ -15,6 +15,7 @@
 2. Json-server
 3. Concurrently
 4. Postman
+5. Biến môi trường (dotenv)
 
 **_có thể tách phần này thành nội dung 1buổi mới_**
 
