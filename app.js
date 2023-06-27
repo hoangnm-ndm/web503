@@ -11,7 +11,15 @@ app.get("/", (req, res) => {
   res.end(`<h1>Day la trang chu!</h1>`);
 });
 
-app.get("/products", (req, res) => {
+// app.get("/products", (req, res) => {
+//   res.end(`<h1>Day la trang san pham!</h1>`);
+// });
+app.get("/products/:id", (req, res) => {
+  res.end(`<h1>Day la trang chi tiet san pham co id la ${req.params.id}!</h1>`);
+});
+
+app.get(`/products`, (req, res) => {
+  console.log(req.query);
   res.end(`<h1>Day la trang san pham!</h1>`);
 });
 
