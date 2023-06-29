@@ -1,19 +1,43 @@
-// import { createServer } from "http";
+// import http from "http";
 
-// const server = createServer((req, res) => {
-//   res.end(`<h1>Xin chao cac ban!!</h1>`);
+// const app = http.createServer((req, res) => {
+//   // res.end(`<h1>Xin chao cac ban!!</h1>`);
+//   console.log("request: ", req);
+//   if (req.url == "/" && req.method == "GET") {
+//     res.end(`<h1>Day la trang chu</h1>`);
+//   }
+//   if (req.url == "/products" && req.method == "GET") {
+//     res.end(`<h1>Day la trang danh sach san pham</h1>`);
+//   }
+//   // if("req  = a")
 // });
 
 import express from "express";
 const app = express();
 
+const products = [
+  {
+    id: "123",
+    name: "Ao vest nam",
+    price: 200,
+  },
+
+  {
+    id: "234",
+    name: "Ao vest nu",
+    price: 300,
+  },
+];
+
 app.get("/", (req, res) => {
   res.end(`<h1>Day la trang chu!</h1>`);
 });
 
-// app.get("/products", (req, res) => {
-//   res.end(`<h1>Day la trang san pham!</h1>`);
-// });
+app.get("/products", (req, res) => {
+  // res.end(`<h1>Day la trang danh sach san pham!</h1>`);
+  res.end(JSON.stringify(products));
+});
+
 app.get("/products/:id", (req, res) => {
   res.end(`<h1>Day la trang chi tiet san pham co id la ${req.params.id}!</h1>`);
 });
