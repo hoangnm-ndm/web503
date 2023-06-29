@@ -36,6 +36,12 @@ app.get("/", (req, res) => {
 app.get("/products", (req, res) => {
   // res.end(`<h1>Day la trang danh sach san pham!</h1>`);
   // res.end(JSON.stringify(products));
+  if (!products) {
+    res.status(404).json({
+      message: "Không tìm thấy sản phẩm",
+    });
+  }
+
   res.status(200).json({
     message: "Gọi danh sách sản phẩm thành công!",
     datas: products,
@@ -43,13 +49,31 @@ app.get("/products", (req, res) => {
 });
 
 app.get("/products/:id", (req, res) => {
-  // res.end(`<h1>Day la trang chi tiet san pham co id la ${req.params.id}!</h1>`);
   const id = req.params.id;
-  console.log("id: ", id);
   const product = products.find((item) => item.id === id);
+  if (!product) {
+    res.status(404).json({
+      message: "Không tìm thấy sản phẩm",
+    });
+  }
   res.status(200).json({
     message: "Gọi chi tiết sản phẩm thành công!",
     datas: product,
+  });
+});
+app.delete("/products/:id", (req, res) => {
+  const id = req.params.id;
+  const product = products.find((item) => item.id === id);
+  if (!product) {
+    res.status(404).json({
+      message: "Không tìm thấy sản phẩm",
+    });
+  }
+  const newProduct = products.filter((item) => item.id !== id);
+  res.status(200).json({
+    message: "Xoá sản phẩm thành công!",
+    product: product,
+    newProduct,
   });
 });
 
