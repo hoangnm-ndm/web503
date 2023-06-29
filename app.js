@@ -47,6 +47,25 @@ app.get("/products/:id", (req, res) => {
     datas: product,
   });
 });
+
+app.delete("/products/:id", (req, res) => {
+  const id = req.params.id;
+  const product = products.find((product) => product.id === id);
+  if (!product) {
+    return res.status(404).json({
+      message: "Không tìm thấy sản phẩm",
+    });
+  }
+
+  const newProducts = products.filter((product) => product.id !== id);
+
+  return res.status(200).json({
+    message: "Xoá sản phẩm thành công!",
+    datas: product,
+    newProducts,
+  });
+});
+
 app.listen(8088, () => {
   console.log("Server is running on port 8088");
 });
