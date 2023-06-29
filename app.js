@@ -1,25 +1,51 @@
-// import { createServer } from "http";
+// import http from "http";
 
-// const server = createServer((req, res) => {
-//   res.end(`<h1>Xin chao ca lop!</h1>`);
+// const app = http.createServer((req, res) => {
+//   if (req.url === "/products" && req.method === "GET") {
+//     res.end(`<h1>Day la trang danh sach san pham</h1>`);
+//   }
+//   if (req.url === "/about" && req.method === "GET") {
+//     res.end(`<h1>Day la trang about</h1>`);
+//   }
+//   if (req.url === "/products/:id" && req.method === "GET") {
+//     res.end(`<h1>Day la trang chi tiet san pham</h1>`);
+//   }
 // });
 
+const products = [
+  { id: "123", name: "Ao vest nam", price: 200000 },
+  { id: "234", name: "Ao vest nu", price: 300000 },
+  { id: "345", name: "Dam di bay", price: 400000 },
+];
 import express from "express";
 const app = express();
 
-app.get("/", (req, res) => {
-  res.end(`<h1>Day la trang chu</h1>`);
-});
-app.get("/about", (req, res) => {
-  res.end(`<h1>Day la trang about</h1>`);
-});
 app.get("/products", (req, res) => {
-  res.end(`<h1>Day la trang san pham</h1>`);
+  // res.end(`<h1>Day la trang san pham</h1>`);
+  // res.end(JSON.stringify(products));
+  if (!products) {
+    return res.status(404).json({
+      message: "Không tìm thấy sản phẩm",
+    });
+  }
+  return res.status(200).json({
+    message: "Hiển thị danh sách sản phẩm thành công!",
+    datas: products,
+  });
 });
-
 app.get("/products/:id", (req, res) => {
   const id = req.params.id;
-  res.end(`<h1>Day la trang chi tiet san pham co id la: ${id}</h1>`);
+  const product = products.find((product) => product.id === id);
+  if (!product) {
+    return res.status(404).json({
+      message: "Không tìm thấy sản phẩm",
+    });
+  }
+
+  return res.status(200).json({
+    message: "Hiển thị chi tiết sản phẩm thành công!",
+    datas: product,
+  });
 });
 app.listen(8088, () => {
   console.log("Server is running on port 8088");
