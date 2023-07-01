@@ -67,7 +67,6 @@ app.post("/products", async (req, res) => {
   }
 });
 
-//Cập nhật sản phẩm
 app.put(`/products/:id`, async (req, res) => {
   try {
     const body = req.body;
@@ -90,6 +89,29 @@ app.put(`/products/:id`, async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: error.message,
+    });
+  }
+});
+
+app.delete("/products/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { status } = await axios.delete(
+      `http://localhost:3000/products/${id}`
+    );
+    console.log(data);
+    if (!status || status !== 200) {
+      return res.status(404).json({
+        message: "Xoá sản phẩm thất bại!",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Xoá sản phẩm thành công!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Xoá sản phẩm thất bại!",
     });
   }
 });

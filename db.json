@@ -1,12 +1,6 @@
 {
   "products": [
     {
-      "id": "234",
-      "name": "San pham B",
-      "price": 200,
-      "desc": "Mo ta cho san pham B"
-    },
-    {
       "id": "456",
       "name": "San pham C",
       "price": 200,
