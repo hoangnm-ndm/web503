@@ -6,32 +6,28 @@
 4. Cài đặt expressjs và get dữ liệu với expressjs
 5. Nodemon và cài đặt nodemon
 6. Request và response. Mô hình client-server.
-7. req.params, req.body, req.query
-8. Routing
 
 # Buổi 2:
 
-1. JSON (khái niệm, JSON.parse, JSON.stringify)
-2. Json-server
-3. Concurrently
-4. Postman
-5. Biến môi trường (dotenv)
-
-**_có thể tách phần này thành nội dung 1buổi mới_**
-
-5. Get all
-6. Get detail
-7. Post
-8. Delete
-9. Put
+1. req.params, req.body, req.query
+2. Routing
+3. CRUD với data fake
+4. JSON (khái niệm, JSON.parse, JSON.stringify)
 
 # Buổi 3:
 
-1. Tái cấu trúc code theo mô hình MVC
-2. Vitejs
-3. Middleware - khái niệm, ứng dụng
+1. Json-server, Concurrently
+2. Postman
+3. Biến môi trường (dotenv)
+4. CRUD với Json-server
 
 # Buổi 4:
+
+1. Tái cấu trúc code theo mô hình MVC
+2. Vitejs
+3. Validation dữ liệu người dùng với Joi (hoặc Yub)
+
+# Buổi 5:
 
 1. MongoDB: Khái niệm, cài đặt, so sánh NoSQL với SQL
 2. Mongosh và các câu lệnh truy vấn mongosh thông dụng
@@ -40,30 +36,41 @@
 5. Sử dụng mongoose
 6. Tái cấu trúc code, sử dụng schema for data collection
 
-# Buổi 5:
+# Buổi 6:
 
 1. Giải thích về JWT, Authoziration, Authentication
 2. Đăng ký
 3. Đăng nhập
 
-# Buổi 6:
+# Buổi 7:
 
 1. Phân quyền (nhắc lại về autho, middleware, checkPermission...)
 2. Xây dựng quyền admin
 
-# Buổi 7:
+# Buổi 8:
 
 1. Code lại tất cả những thứ đã học trong 1 tiếng
 
-# Buổi 8:
+# Buổi 9:
+
+1. Kết nối nodejs với reactjs (backend <-> frontend)
+2. Xây dựng giao diện
+
+# Buổi 10:
 
 1. CRUD cho categories
 2. Kết nối các collection với populate
 3. Quan hệ 1 - nhiều, quan hệ nhiều - nhiều.
 
-# Buổi 9:
+# Buổi 11:
 
-1. Kết nối nodejs với reactjs (backend <-> frontend)
+1. Query
+2. Chức năng phân trang
+3. Chức năng lọc sản phẩm
+
+<!-- # Buổi 12: Test với mocha, chaijs:
+1. Mô hình test unit
+2. Automation test with CI/CD -->
 
 # Nâng cao:
 
