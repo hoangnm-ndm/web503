@@ -1,0 +1,7 @@
+{
+  "products": [
+    { "id": "234", "name": "Đầm đi bar", "price": 200 },
+    { "id": "123", "name": "Đầm đi date", "price": 300 },
+    { "id": "234", "name": "Đầm đi học", "price": 440 }
+  ]
+}
