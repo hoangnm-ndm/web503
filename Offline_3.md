@@ -15,6 +15,8 @@ npm i axios
 
 # 3. Code
 
+- Code CRUD
+
 ```
 npm run dev
 ```
