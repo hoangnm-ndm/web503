@@ -1,20 +1,45 @@
 {
   "products": [
     {
-      "name": "Thuốc chống buồn ngủ",
-      "price": 200,
-      "desc": "Mô tả",
-      "id": "234"
-    },
-    {
-      "id": "123",
-      "name": "Đầm đi date",
-      "price": 300
-    },
-    {
       "id": "235",
       "name": "Đầm đi học",
       "price": 440
+    },
+    {
+      "name": "Ô tô la bô gi ni",
+      "price": 400000,
+      "desc": "mô tả cái ô tô",
+      "id": "I8x61ml"
+    },
+    {
+      "name": "Ô tô la bô gi ni",
+      "price": "ba nghìn đồng",
+      "desc": "mô tả cái ô tô",
+      "id": "gp-YHX3"
+    },
+    {
+      "name": "Ô tô la bô gi ni",
+      "price": -20000,
+      "desc": "mô tả cái ô tô",
+      "id": "zGJIRN2"
+    },
+    {
+      "name": "",
+      "price": -20000,
+      "desc": "mô tả cái ô tô",
+      "id": "vv8sgjJ"
+    },
+    {
+      "name": "sdsdsds",
+      "price": -20000,
+      "desc": "mô tả cái ô tô",
+      "id": "of8wjSr"
+    },
+    {
+      "name": "sdsdsds",
+      "price": 20000,
+      "desc": "mô tả cái ô tô",
+      "id": "G2v9fMO"
     }
   ]
 }
