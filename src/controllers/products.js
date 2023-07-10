@@ -1,5 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import { productValidator } from "../validations/products";
 dotenv.config();
 
 const { API_URL } = process.env;
@@ -7,7 +8,7 @@ const { API_URL } = process.env;
 export const getAll = async (req, res) => {
   try {
     const { data } = await axios.get(`${API_URL}/products`);
-    if (!data) {
+    if (!data || data.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
       });
@@ -46,6 +47,12 @@ export const getDetail = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
+    const { error } = productValidator.validate(body);
+    if (error && error.details[0].message) {
+      return res.status(400).json({
+        message: error.details[0].message,
+      });
+    }
     const { data } = await axios.post(`${API_URL}/products`, body);
     if (!data) {
       return res.status(404).json({
@@ -67,6 +74,13 @@ export const update = async (req, res) => {
   try {
     const id = req.params.id;
     const body = req.body;
+
+    const { error } = productValidator.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: error.details[0].message || "Please re-check your product",
+      });
+    }
     const { data } = await axios.put(`${API_URL}/products/${id}`, body);
     if (!data) {
       return res.status(404).json({

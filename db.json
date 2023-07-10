@@ -1,8 +1,9 @@
 {
   "products": [
     {
-      "name": "Thuốc chống chăm",
-      "price": 2323232,
+      "name": "Thuốc chống buồn nôn",
+      "price": "200",
+      "desc": "Mô tả",
       "id": "656"
     },
     {
@@ -29,6 +30,42 @@
       "name": "Thuốc chống chăm",
       "price": 400,
       "id": "661"
+    },
+    {
+      "name": "Toyota raize",
+      "price": 20000,
+      "desc": "mô tả cái ô tô",
+      "id": "f5pUQhc"
+    },
+    {
+      "name": "",
+      "price": 20000,
+      "desc": "mô tả cái ô tô",
+      "id": "qY33FxZ"
+    },
+    {
+      "name": "",
+      "price": "20000",
+      "desc": "mô tả cái ô tô",
+      "id": "caTEy2p"
+    },
+    {
+      "name": "",
+      "price": "20000",
+      "desc": "mô tả cái ô tô",
+      "id": "20jm_6Y"
+    },
+    {
+      "name": "",
+      "price": "",
+      "desc": "mô tả cái ô tô",
+      "id": "J0iyEQ5"
+    },
+    {
+      "name": "",
+      "price": "",
+      "desc": "mô tả cái ô tô",
+      "id": "Hfhkfqc"
     }
   ]
 }
