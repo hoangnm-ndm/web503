@@ -1,8 +1,12 @@
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+
+const { API_URL } = process.env;
 
 export const getAll = async (req, res) => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/products`);
+    const { data } = await axios.get(`${API_URL}/products`);
     if (!data || data.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -23,7 +27,7 @@ export const getAll = async (req, res) => {
 export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
-    const { data } = await axios.get(`http://localhost:3000/products/${id}`);
+    const { data } = await axios.get(`${API_URL}/products/${id}`);
     if (!data) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -44,7 +48,7 @@ export const getDetail = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const { data } = await axios.post(`http://localhost:3000/products`, body);
+    const { data } = await axios.post(`${API_URL}/products`, body);
     console.log(data);
     if (!data) {
       return res.status(404).json({
@@ -67,10 +71,7 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
-    const { data } = await axios.put(
-      `http://localhost:3000/products/${id}`,
-      body
-    );
+    const { data } = await axios.put(`${API_URL}/products/${id}`, body);
     console.log(data);
     if (!data) {
       return res.status(404).json({
@@ -92,9 +93,7 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    const { status } = await axios.delete(
-      `http://localhost:3000/products/${id}`
-    );
+    const { status } = await axios.delete(`${API_URL}/products/${id}`);
     console.log(data);
     if (!status || status !== 200) {
       return res.status(404).json({

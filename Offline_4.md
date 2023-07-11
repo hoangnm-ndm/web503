@@ -21,3 +21,19 @@
 ```
 
 # 3 Tái cấu trúc lại controllers, routes theo source code có sẵn trong github.
+
+# 4: Cấu hình biến môi trường:
+
+```json
+npm i dotenv
+```
+
+- Tạo file .env và khai báo biến môi trường.
+
+- Cách dùng:
+
+```js
+import dotenv from "env";
+dotenv.config();
+console.log(process.env);
+```
