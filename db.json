@@ -66,6 +66,12 @@
       "price": "",
       "desc": "mô tả cái ô tô",
       "id": "Hfhkfqc"
+    },
+    {
+      "name": "Thuốc chống buồn ngủ",
+      "price": 200,
+      "desc": "Mo ta thuốc",
+      "id": "OoVRLzO"
     }
   ]
 }
