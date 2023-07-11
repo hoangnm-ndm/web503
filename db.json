@@ -1,12 +1,6 @@
 {
   "products": [
     {
-      "id": "456",
-      "name": "San pham C",
-      "price": 200,
-      "desc": "Mo ta cho san pham C"
-    },
-    {
       "name": "Thuốc chống lười",
       "price": 400,
       "desc": "Mo ta thuốc",
@@ -50,6 +44,24 @@
       "price": 200,
       "desc": "Mo ta thuốc",
       "id": "7VkN21W"
+    },
+    {
+      "name": "Thuốc chống buồn ngủ",
+      "price": 200,
+      "desc": "Mo ta thuốc",
+      "id": "mEZ5p75"
+    },
+    {
+      "name": "Thuốc chống buồn ngủ",
+      "price": 200,
+      "desc": "Mo ta thuốc",
+      "id": "ikqtCxZ"
+    },
+    {
+      "name": "Thuốc chống buồn ngủ",
+      "price": 200,
+      "desc": "Mo ta thuốc",
+      "id": "rGRjqJG"
     }
   ]
 }

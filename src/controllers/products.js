@@ -1,13 +1,9 @@
 import axios from "axios";
-import express from "express";
-const app = express();
 
-app.use(express.json());
-
-app.get("/products", async (req, res) => {
+export const getAll = async (req, res) => {
   try {
     const { data } = await axios.get(`http://localhost:3000/products`);
-    if (!data) {
+    if (!data || data.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
       });
@@ -22,9 +18,9 @@ app.get("/products", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.get("/products/:id", async (req, res) => {
+export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
     const { data } = await axios.get(`http://localhost:3000/products/${id}`);
@@ -43,9 +39,9 @@ app.get("/products/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.post("/products", async (req, res) => {
+export const create = async (req, res) => {
   try {
     const body = req.body;
     const { data } = await axios.post(`http://localhost:3000/products`, body);
@@ -65,9 +61,9 @@ app.post("/products", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.put(`/products/:id`, async (req, res) => {
+export const update = async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
@@ -91,9 +87,9 @@ app.put(`/products/:id`, async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.delete("/products/:id", async (req, res) => {
+export const remove = async (req, res) => {
   try {
     const id = req.params.id;
     const { status } = await axios.delete(
@@ -114,13 +110,4 @@ app.delete("/products/:id", async (req, res) => {
       message: "Xoá sản phẩm thất bại!",
     });
   }
-});
-
-app.listen(8088, () => {
-  console.log("Server is running on port 8088");
-});
-
-// Bước 1: npm init
-// Bước 2: cd folder -> tạo file app.js
-// Bước 3: Thêm "type": "module" trong package.json
-// Bước 4: Refactor dự án
+};
