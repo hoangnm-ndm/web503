@@ -1,20 +1,9 @@
 {
   "products": [
     {
-      "id": "235",
-      "name": "Đầm đi học",
-      "price": 440
-    },
-    {
-      "name": "Ô tô la bô gi ni",
-      "price": 400000,
-      "desc": "mô tả cái ô tô",
-      "id": "I8x61ml"
-    },
-    {
-      "name": "Ô tô la bô gi ni",
-      "price": "ba nghìn đồng",
-      "desc": "mô tả cái ô tô",
+      "name": "San pham A Update",
+      "price": "400",
+      "desc": "Mô tả san pham A",
       "id": "gp-YHX3"
     },
     {
@@ -40,6 +29,18 @@
       "price": 20000,
       "desc": "mô tả cái ô tô",
       "id": "G2v9fMO"
+    },
+    {
+      "name": "san pham A",
+      "price": 200,
+      "desc": "mô tả cái ô tô",
+      "id": "s3lnp_l"
+    },
+    {
+      "name": "san pham AAA",
+      "price": 200,
+      "desc": "mô tả cái ô tô",
+      "id": "zUlBnzn"
     }
   ]
 }

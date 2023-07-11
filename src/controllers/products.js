@@ -1,10 +1,6 @@
 import axios from "axios";
-import express from "express";
-const app = express();
 
-app.use(express.json());
-
-app.get("/products", async (req, res) => {
+export const getAll = async (req, res) => {
   try {
     const { data } = await axios.get(`http://localhost:3000/products`);
     if (!data) {
@@ -21,13 +17,13 @@ app.get("/products", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.get("/products/:id", async (req, res) => {
+export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
     const datas = await axios.get(`http://localhost:3000/products/${id}`);
-    if (!datas || datas.status !== 200) {
+    if (!datas) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
       });
@@ -42,9 +38,9 @@ app.get("/products/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.put("/products/:id", async (req, res) => {
+export const update = async (req, res) => {
   try {
     const id = req.params.id;
     const body = req.body;
@@ -66,9 +62,9 @@ app.put("/products/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.post("/products", async (req, res) => {
+export const create = async (req, res) => {
   try {
     const body = req.body;
     const { data } = await axios.post(`http://localhost:3000/products`, body);
@@ -86,9 +82,9 @@ app.post("/products", async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-app.delete("/products/:id", async (req, res) => {
+export const remove = async (req, res) => {
   try {
     const id = req.params.id;
     const { status } = await axios.delete(
@@ -104,11 +100,7 @@ app.delete("/products/:id", async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      message: error.message,
+      message: error.message || "Xoá sản phẩm thất bại!",
     });
   }
-});
-
-app.listen(8088, () => {
-  console.log("Server is running on port 8088");
-});
+};

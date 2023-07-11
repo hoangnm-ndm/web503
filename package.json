@@ -2,11 +2,11 @@
   "name": "onclass",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
-    "dev": "concurrently \"json-server -w db.json --port 3000\" \"nodemon app.js\""
+    "start": "nodemon --experimental-specifier-resolution=node src/app.js",
+    "dev": "concurrently \"json-server -w db.json --port 3000\" \"nodemon --experimental-specifier-resolution=node src/app.js\""
   },
   "repository": {
     "type": "git",
