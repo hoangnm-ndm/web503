@@ -86,7 +86,8 @@ export const update = async (req, res) => {
         message: error.details[0].message || "Please re-check your product",
       });
     }
-    const { data } = await axios.put(`${API_URL}/products/${id}`, body);
+    // const { data } = await axios.put(`${API_URL}/products/${id}`, body);
+    const data = await product.findOneAndUpdate({ _id: id }, body, { new: true });
     if (!data) {
       return res.status(404).json({
         message: "Cập nhật sản phẩm không thành công",
@@ -106,15 +107,17 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    const { status } = await axios.delete(`${API_URL}/products/${id}`);
-    if (status !== 200) {
-      return res.status(404).json({
-        message: "Xoá sản phẩm không thành công!",
-      });
-    }
-    return res.status(200).json({
-      message: "Xoá sản phẩm thành công!",
-    });
+    // const { status } = await axios.delete(`${API_URL}/products/${id}`);
+    const product = await product.findByIdAndDelete(id);
+    console.log(product)
+    // if (status !== 200) {
+    //   return res.status(404).json({
+    //     message: "Xoá sản phẩm không thành công!",
+    //   });
+    // }
+    // return res.status(200).json({
+    //   message: "Xoá sản phẩm thành công!",
+    // });
   } catch (error) {
     return res.status(500).json({
       message: error.message,
