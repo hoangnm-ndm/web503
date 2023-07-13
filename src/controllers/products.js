@@ -1,12 +1,14 @@
 import axios from "axios";
 
 import dotenv from "dotenv";
+import products from "../models/products";
 dotenv.config();
 
 const { DB_URL } = process.env;
 export const getAll = async (req, res) => {
   try {
-    const { data } = await axios.get(`${DB_URL}/products`);
+    // const { data } = await axios.get(`${DB_URL}/products`);
+    const data =  await products.find({})
     if (!data) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -68,7 +70,8 @@ export const update = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const { data } = await axios.post(`${DB_URL}/products`, body);
+    // const { data } = await axios.post(`${DB_URL}/products`, body);
+    const data = await products.create(body)
     if (!data) {
       return res.status(404).json({
         message: "Thêm mới sản phẩm thất bại!",
