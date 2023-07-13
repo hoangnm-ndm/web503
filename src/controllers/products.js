@@ -28,13 +28,15 @@ export const getAll = async (req, res) => {
 export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
-    const datas = await axios.get(`${DB_URL}/products/${id}`);
-    if (!datas) {
+    // const datas = await axios.get(`${DB_URL}/products/${id}`);
+    const data = await products.find({_id: id})
+    // Cach 2:
+    // const data = await products.findById(id)
+    if (!data) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
       });
     }
-    const { data } = datas;
     return res.status(200).json({
       message: "Hiển thị chi tiết sản phẩm thành công!",
       datas: data,
