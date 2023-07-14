@@ -1,4 +1,3 @@
-import axios from "axios";
 import dotenv from "dotenv";
 import { productValidator } from "../validations/products";
 import product from "../models/product";
@@ -87,7 +86,8 @@ export const update = async (req, res) => {
       });
     }
     // const { data } = await axios.put(`${API_URL}/products/${id}`, body);
-    const data = await product.findOneAndUpdate({ _id: id }, body, { new: true });
+    // const data = await product.findOneAndUpdate({ _id: id }, body, { new: true });
+    const data = await product.findByIdAndUpdate(id, body, { new: true })
     if (!data) {
       return res.status(404).json({
         message: "Cập nhật sản phẩm không thành công",
