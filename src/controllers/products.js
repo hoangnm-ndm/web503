@@ -9,7 +9,7 @@ export const getAll = async (req, res) => {
   try {
     // const { data } = await axios.get(`${DB_URL}/products`);
     const data =  await products.find({})
-    if (!data) {
+    if (!data || data.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
       });
@@ -52,7 +52,8 @@ export const update = async (req, res) => {
   try {
     const id = req.params.id;
     const body = req.body;
-    const { data } = await axios.put(`${DB_URL}/products/${id}`, body);
+    // const { data } = await axios.put(`${DB_URL}/products/${id}`, body);
+    const data = await products.findByIdAndUpdate(id, body, { new: true})
     if (!data) {
       return res.status(404).json({
         message: "Cập nhật sản phẩm thất bại!",
@@ -93,14 +94,16 @@ export const create = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    const { status } = await axios.delete(`${DB_URL}/products/${id}`);
-    if (!status || status !== 200) {
+    // const { status } = await axios.delete(`${DB_URL}/products/${id}`);
+    const data = await products.findByIdAndDelete(id)
+    if (!data) {
       return res.status(404).json({
         message: "Xoá sản phẩm thất bại!",
       });
     }
     return res.status(200).json({
       message: "Xoá sản phẩm thành công!",
+      data
     });
   } catch (error) {
     return res.status(500).json({
