@@ -54,6 +54,8 @@ export const update = async (req, res) => {
     const body = req.body;
     // const { data } = await axios.put(`${DB_URL}/products/${id}`, body);
     const data = await products.findByIdAndUpdate(id, body, { new: true})
+    // Cach 2:
+    // const data = await products.updateOne({_id: id}, body, { new: true})
     if (!data) {
       return res.status(404).json({
         message: "Cập nhật sản phẩm thất bại!",
