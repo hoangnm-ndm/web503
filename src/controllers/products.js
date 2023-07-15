@@ -31,6 +31,7 @@ export const getDetail = async (req, res) => {
     const id = req.params.id;
     // const { data } = await axios.get(`${API_URL}/products/${id}`);
     const data = await product.findById(id)
+    // const data = await product.find({ _id: id})
     if (!data) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -75,7 +76,8 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
-    const { data } = await axios.put(`${API_URL}/products/${id}`, body);
+    // const { data } = await axios.put(`${API_URL}/products/${id}`, body);
+    const data = await product.findByIdAndUpdate(id, body, { new: true})
     console.log(data);
     if (!data) {
       return res.status(404).json({
@@ -97,9 +99,10 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    const { status } = await axios.delete(`${API_URL}/products/${id}`);
+    // const { status } = await axios.delete(`${API_URL}/products/${id}`);
+    const data = await product.findByIdAndDelete(id);
     console.log(data);
-    if (!status || status !== 200) {
+    if (!data) {
       return res.status(404).json({
         message: "Xoá sản phẩm thất bại!",
       });
@@ -107,6 +110,7 @@ export const remove = async (req, res) => {
 
     return res.status(200).json({
       message: "Xoá sản phẩm thành công!",
+      data
     });
   } catch (error) {
     return res.status(500).json({
