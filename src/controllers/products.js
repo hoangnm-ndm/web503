@@ -1,6 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import product from "../models/products";
+import productSchema from "../validations/product";
 dotenv.config();
 
 const { API_URL } = process.env;
@@ -52,6 +53,12 @@ export const getDetail = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
+    const { error } = productSchema.validate(body)
+    if(error) {
+      return res.status(400).json({
+        message: error.details[0].message,
+      });
+    }
     // const { data } = await axios.post(`${API_URL}/products`, body);
     const data = await product.create(body)
     console.log(data);
@@ -76,6 +83,13 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
+
+    const { error } = productSchema.validate(body)
+    if(error) {
+      return res.status(400).json({
+        message: error.details[0].message,
+      });
+    }
     // const { data } = await axios.put(`${API_URL}/products/${id}`, body);
     const data = await product.findByIdAndUpdate(id, body, { new: true})
     console.log(data);
