@@ -2,6 +2,7 @@ import axios from "axios";
 
 import dotenv from "dotenv";
 import products from "../models/products";
+import productSchema from "../validations/product";
 dotenv.config();
 
 const { DB_URL } = process.env;
@@ -53,6 +54,14 @@ export const update = async (req, res) => {
     const id = req.params.id;
     const body = req.body;
     // const { data } = await axios.put(`${DB_URL}/products/${id}`, body);
+
+    const { error } = productSchema.validate(body, { abortEarly: true });
+    if(error) {
+      return res.status(400).json({
+        message: error.details[0].message || "Please re-check data!!",
+      });
+    }
+    console.log(error)
     const data = await products.findByIdAndUpdate(id, body, { new: true})
     // Cach 2:
     // const data = await products.updateOne({_id: id}, body, { new: true})
@@ -75,6 +84,13 @@ export const update = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
+
+    const { error } = productSchema.validate(body, { abortEarly: true });
+    if(error) {
+      return res.status(400).json({
+        message: error.details[0].message || "Please re-check data!!",
+      });
+    }
     // const { data } = await axios.post(`${DB_URL}/products`, body);
     const data = await products.create(body)
     if (!data) {
