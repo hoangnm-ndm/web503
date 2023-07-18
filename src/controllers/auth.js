@@ -23,7 +23,6 @@ export const signUp = async (req, res) => {
 
         // Mã hoá password:
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        
 
         // Khởi tạo new user:
         const user = await User.create({
