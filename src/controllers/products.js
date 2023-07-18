@@ -1,4 +1,3 @@
-import axios from "axios";
 import dotenv from "dotenv";
 import product from "../models/products";
 import productSchema from "../validations/product";
