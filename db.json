@@ -1,39 +1,77 @@
 {
-  "users": [
+  "products": [
     {
-      "name": "Phuong Thuy",
-      "username": "phuongthuy123",
-      "email": "phuongthuy@gmail.com",
-      "phone": "9956976967",
-      "id": 1
+      "name": "Thuốc chống buồn nôn",
+      "price": "200",
+      "desc": "Mô tả",
+      "id": "656"
     },
     {
-      "name": "Trong Kien",
-      "username": "trongkien123",
-      "email": "trongkien@gmail.com",
-      "phone": "9956976967",
-      "id": 2
+      "name": "Thuốc chống chăm",
+      "price": 400,
+      "id": "657"
     },
     {
-      "name": "Hoang Hai",
-      "username": "hoanghai123",
-      "email": "hoanghai@gmail.com",
-      "phone": "9956976967",
-      "id": 3
+      "name": "Thuốc chống chăm",
+      "price": 400,
+      "id": "658"
     },
     {
-      "name": "Minh Dung",
-      "username": "minhdung123",
-      "email": "minhdung@gmail.com",
-      "phone": "9956976967",
-      "id": 4
+      "name": "Thuốc chống chăm",
+      "price": 400,
+      "id": "659"
     },
     {
-      "name": "Thuy Huong",
-      "username": "thuyhuong4567",
-      "email": "thuyhuong2547@gmail.com",
-      "phone": "444444444444",
-      "id": 5
+      "name": "Thuốc chống chăm",
+      "price": 400,
+      "id": "660"
+    },
+    {
+      "name": "Thuốc chống chăm",
+      "price": 400,
+      "id": "661"
+    },
+    {
+      "name": "Toyota raize",
+      "price": 20000,
+      "desc": "mô tả cái ô tô",
+      "id": "f5pUQhc"
+    },
+    {
+      "name": "",
+      "price": 20000,
+      "desc": "mô tả cái ô tô",
+      "id": "qY33FxZ"
+    },
+    {
+      "name": "",
+      "price": "20000",
+      "desc": "mô tả cái ô tô",
+      "id": "caTEy2p"
+    },
+    {
+      "name": "",
+      "price": "20000",
+      "desc": "mô tả cái ô tô",
+      "id": "20jm_6Y"
+    },
+    {
+      "name": "",
+      "price": "",
+      "desc": "mô tả cái ô tô",
+      "id": "J0iyEQ5"
+    },
+    {
+      "name": "",
+      "price": "",
+      "desc": "mô tả cái ô tô",
+      "id": "Hfhkfqc"
+    },
+    {
+      "name": "Thuốc chống buồn ngủ",
+      "price": 200,
+      "desc": "Mo ta thuốc",
+      "id": "OoVRLzO"
     }
   ]
 }
