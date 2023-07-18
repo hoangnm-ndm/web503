@@ -19,24 +19,13 @@
     "url": "https://github.com/hoangnm-ndm/web503_nodejs/issues"
   },
   "homepage": "https://github.com/hoangnm-ndm/web503_nodejs#readme",
-  "devDependencies": {
-    "chai": "^4.3.7",
-    "chai-http": "^4.3.0",
-    "mocha": "^10.2.0",
-    "nodemon": "^2.0.22"
-  },
   "dependencies": {
-    "axios": "^1.4.0",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
     "concurrently": "^8.2.0",
-    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.3.4",
-    "vite": "^4.2.1",
-    "vite-plugin-node": "^3.0.2"
+    "nodemon": "^3.0.1"
   }
 }
