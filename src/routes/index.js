@@ -1,7 +1,9 @@
 import { Router } from "express";
-import router from "./product";
-const routerProducts = Router();
+import routerProducts from "./product";
+import routerAuth from "./auth";
+const router = Router();
 
-routerProducts.use("/products", router);
+router.use("/products", routerProducts);
+router.use("/auth", routerAuth);
 
-export default routerProducts;
+export default router;

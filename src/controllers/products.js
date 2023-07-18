@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { productValidator } from "../validations/products";
-import product from "../models/product";
+import Product from "../models/Product";
 dotenv.config();
 
 const { API_URL } = process.env;
@@ -8,7 +8,7 @@ const { API_URL } = process.env;
 export const getAll = async (req, res) => {
   try {
     // const { data } = await axios.get(`${API_URL}/products`);
-    const data = await product.find();
+    const data = await Product.find();
     console.log(data);
     if (!data || data.length === 0) {
       return res.status(404).json({
@@ -30,7 +30,7 @@ export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
     // const { data } = await axios.get(`${API_URL}/products/${id}`);
-    const data = await product.findById(id);
+    const data = await Product.findById(id);
     if (!data) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -57,7 +57,7 @@ export const create = async (req, res) => {
       });
     }
     // const { data } = await axios.post(`${API_URL}/products`, body);
-    const data = await product.create(body);
+    const data = await Product.create(body);
     if (!data) {
       return res.status(404).json({
         message: "Thêm mới sản phẩm không thành công",
@@ -87,7 +87,7 @@ export const update = async (req, res) => {
     }
     // const { data } = await axios.put(`${API_URL}/products/${id}`, body);
     // const data = await product.findOneAndUpdate({ _id: id }, body, { new: true });
-    const data = await product.findByIdAndUpdate(id, body, { new: true })
+    const data = await Product.findByIdAndUpdate(id, body, { new: true })
     if (!data) {
       return res.status(404).json({
         message: "Cập nhật sản phẩm không thành công",
@@ -108,16 +108,15 @@ export const remove = async (req, res) => {
   try {
     const id = req.params.id;
     // const { status } = await axios.delete(`${API_URL}/products/${id}`);
-    const product = await product.findByIdAndDelete(id);
-    console.log(product)
-    // if (status !== 200) {
-    //   return res.status(404).json({
-    //     message: "Xoá sản phẩm không thành công!",
-    //   });
-    // }
-    // return res.status(200).json({
-    //   message: "Xoá sản phẩm thành công!",
-    // });
+    const data = await Product.findByIdAndDelete(id);
+    if (!data) {
+      return res.status(404).json({
+        message: "Xoá sản phẩm không thành công!",
+      });
+    }
+    return res.status(200).json({
+      message: "Xoá sản phẩm thành công!",
+    });
   } catch (error) {
     return res.status(500).json({
       message: error.message,
