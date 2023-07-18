@@ -26,7 +26,8 @@ export const signUp = async (req, res) => {
 
         // Khởi tạo new user:
         const user = await User.create({
-            ...req.body,
+            userName: req.body.userName,
+            email: req.body.email,
             password: hashedPassword
         });
 

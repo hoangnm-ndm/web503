@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node --experimental-specifier-resolution=node ./src/app.js",
     "start2": "nodemon --experimental-specifier-resolution=node ./src/app.js",
-    "dev": "concurrently \"json-server --watch db.json --port 3000\" \"nodemon --experimental-specifier-resolution=node ./src/app.js\""
+    "dev": "concurrently \"json-server --watch db.json --port 3000\" \"nodemon --experimental-specifier-resolution=node ./src/app.js\"",
+    "build": "babel src -d build"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,8 @@
     "mongoose": "^7.3.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "dotenv": "^16.3.1",
     "json-server": "^0.17.3",
     "nodemon": "^2.0.22"
