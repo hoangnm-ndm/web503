@@ -9,7 +9,6 @@ export const getAll = async (req, res) => {
   try {
     // const { data } = await axios.get(`${API_URL}/products`);
     const data = await Product.find();
-    console.log(data);
     if (!data || data.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
