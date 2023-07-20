@@ -7,11 +7,11 @@ const app = express();
 
 dotenv.config();
 
-const { PORT } = process.env;
+const { PORT, DB_URI } = process.env;
 
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/dm18102").then(() => {
+mongoose.connect(DB_URI).then(() => {
   console.log("Connected!")
 })
 
