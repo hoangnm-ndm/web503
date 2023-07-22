@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import product from "../models/products";
+import Product from "../models/products";
 import productSchema from "../validations/product";
 dotenv.config();
 
@@ -8,7 +8,7 @@ const { API_URL } = process.env;
 export const getAll = async (req, res) => {
   try {
     // const { data } = await axios.get(`${API_URL}/products`);
-    const data = await product.find({})
+    const data = await Product.find({})
     if (!data || data.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -30,7 +30,7 @@ export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
     // const { data } = await axios.get(`${API_URL}/products/${id}`);
-    const data = await product.findById(id)
+    const data = await Product.findById(id)
     // const data = await product.find({ _id: id})
     if (!data) {
       return res.status(404).json({
@@ -59,7 +59,7 @@ export const create = async (req, res) => {
       });
     }
     // const { data } = await axios.post(`${API_URL}/products`, body);
-    const data = await product.create(body)
+    const data = await Product.create(body)
     console.log(data);
     if (!data) {
       return res.status(404).json({
@@ -90,7 +90,7 @@ export const update = async (req, res) => {
       });
     }
     // const { data } = await axios.put(`${API_URL}/products/${id}`, body);
-    const data = await product.findByIdAndUpdate(id, body, { new: true})
+    const data = await Product.findByIdAndUpdate(id, body, { new: true})
     console.log(data);
     if (!data) {
       return res.status(404).json({
@@ -113,7 +113,7 @@ export const remove = async (req, res) => {
   try {
     const id = req.params.id;
     // const { status } = await axios.delete(`${API_URL}/products/${id}`);
-    const data = await product.findByIdAndDelete(id);
+    const data = await Product.findByIdAndDelete(id);
     console.log(data);
     if (!data) {
       return res.status(404).json({
