@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import dotenv from "dotenv";
-import products from "../models/products";
+import Product from "../models/Product";
 import productSchema from "../validations/product";
 dotenv.config();
 
@@ -9,7 +9,7 @@ const { DB_URL } = process.env;
 export const getAll = async (req, res) => {
   try {
     // const { data } = await axios.get(`${DB_URL}/products`);
-    const data =  await products.find({})
+    const data =  await Product.find({})
     if (!data || data.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -30,7 +30,7 @@ export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
     // const datas = await axios.get(`${DB_URL}/products/${id}`);
-    const data = await products.find({_id: id})
+    const data = await Product.find({_id: id})
     // Cach 2:
     // const data = await products.findById(id)
     if (!data) {
@@ -62,7 +62,7 @@ export const update = async (req, res) => {
       });
     }
     console.log(error)
-    const data = await products.findByIdAndUpdate(id, body, { new: true})
+    const data = await Product.findByIdAndUpdate(id, body, { new: true})
     // Cach 2:
     // const data = await products.updateOne({_id: id}, body, { new: true})
     if (!data) {
@@ -92,7 +92,7 @@ export const create = async (req, res) => {
       });
     }
     // const { data } = await axios.post(`${DB_URL}/products`, body);
-    const data = await products.create(body)
+    const data = await Product.create(body)
     if (!data) {
       return res.status(404).json({
         message: "Thêm mới sản phẩm thất bại!",
@@ -113,7 +113,7 @@ export const remove = async (req, res) => {
   try {
     const id = req.params.id;
     // const { status } = await axios.delete(`${DB_URL}/products/${id}`);
-    const data = await products.findByIdAndDelete(id)
+    const data = await Product.findByIdAndDelete(id)
     if (!data) {
       return res.status(404).json({
         message: "Xoá sản phẩm thất bại!",
