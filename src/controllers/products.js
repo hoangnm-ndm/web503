@@ -7,7 +7,6 @@ const { API_URL } = process.env;
 
 export const getAll = async (req, res) => {
   try {
-    // const { data } = await axios.get(`${API_URL}/products`);
     const data = await Product.find({})
     if (!data || data.length === 0) {
       return res.status(404).json({
@@ -29,9 +28,7 @@ export const getAll = async (req, res) => {
 export const getDetail = async (req, res) => {
   try {
     const id = req.params.id;
-    // const { data } = await axios.get(`${API_URL}/products/${id}`);
     const data = await Product.findById(id)
-    // const data = await product.find({ _id: id})
     if (!data) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -52,15 +49,14 @@ export const getDetail = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
+    // console.log("noi dung trong create controller:", req.body)
     const { error } = productSchema.validate(body)
     if(error) {
       return res.status(400).json({
         message: error.details[0].message,
       });
     }
-    // const { data } = await axios.post(`${API_URL}/products`, body);
     const data = await Product.create(body)
-    console.log(data);
     if (!data) {
       return res.status(404).json({
         message: "Tạo mới sản phẩm thất bại!",
@@ -89,9 +85,7 @@ export const update = async (req, res) => {
         message: error.details[0].message,
       });
     }
-    // const { data } = await axios.put(`${API_URL}/products/${id}`, body);
     const data = await Product.findByIdAndUpdate(id, body, { new: true})
-    console.log(data);
     if (!data) {
       return res.status(404).json({
         message: "Cập nhật sản phẩm thất bại!",
@@ -112,9 +106,7 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    // const { status } = await axios.delete(`${API_URL}/products/${id}`);
     const data = await Product.findByIdAndDelete(id);
-    console.log(data);
     if (!data) {
       return res.status(404).json({
         message: "Xoá sản phẩm thất bại!",

@@ -74,16 +74,14 @@ export const signIn = async (req, res) => {
         }
 
         // B3: So sánh password có đúng không?
-        console.log(user)
         const isMatch = await bcryptjs.compare(req.body.password, user.password)
-        console.log(isMatch)
         if(!isMatch) {
             return res.status(400).json({
                 message: "Mật khẩu không đúng, vui lòng nhập lại!"
             })
         }
         // B4: Tạo jwt
-        const accessToken = jwt.sign({_id: user.id}, SECRET_KEY)
+        const accessToken = jwt.sign({_id: user.id}, SECRET_KEY, { expiresIn: "1d"})
         // B5: Response thông tin đăng nhập.
         user.password = undefined
         return res.status(200).json({
@@ -93,7 +91,7 @@ export const signIn = async (req, res) => {
         })
         
     } catch (error) {
-        console.log(error)
+  
         return res.status(500).json({
             name: error.name,
             message: error.message
