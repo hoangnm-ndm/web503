@@ -7,9 +7,7 @@ const { SECRET_CODE } = process.env;
 export const checkPermission = async (req, res, next) => {
   try {
     // Bước 1: Kiểm tra xem đã đăng nhập hay chưa?
-    console.log(req.headers);
     const token = req.headers.authorization.split(" ")[1];
-    // ["Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGM0N2ZjYjkyYjRmZGY2NWM3NTcxZGUiLCJpYXQiOjE2OTA1OTk0MDAsImV4cCI6MTY5MDY4NTgwMH0.tUW1WulBgtoYTKWaKIMTu5WF4Hdu5dMFHTPsH1r6dao"]
     if (!token) {
       return res.status(403).json({
         message: "Bạn chưa đăng nhập!",
@@ -31,14 +29,18 @@ export const checkPermission = async (req, res, next) => {
         message: "User không tồn tại trong hệ thống!",
       });
     }
+
     // Bước 4: Check user.role
-    if (user.role === "admin") {
-      next();
+    if (user.role !== "admin") {
+      return res.status(400).json({
+        message: "Bạn không có quyền làm việc này!",
+      });
     }
-    // Bước 5: Xử lý lỗi!
-    return res.status(400).json({
-      message: "Bạn không có quyền làm việc này!",
-    });
+    // Check các quyền khác:
+    if (user.role !== "host") {
+      // verify quyền host
+    }
+    next();
   } catch (error) {
     return res.status(400).json({
       name: error.name,
