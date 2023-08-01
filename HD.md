@@ -2,7 +2,7 @@
 
 ```
 src - | app.js
-      |llers
+      | controllers
       | middlewares
       | models
       | routes
