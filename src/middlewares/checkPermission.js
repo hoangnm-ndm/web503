@@ -33,14 +33,6 @@ export const checkPermission = async (req, res, next) => {
         message: "Bạn không có quyền làm việc này!",
       });
     }
-
-    // Cach 2:
-    // if(user && user.role === "admin"){
-    //     next()
-    // }
-    // return res.status(400).json({
-    //     message: "Ban khong co quyen lam viec nao!"
-    // })
     next();
   } catch (error) {
     return res.status(500).json({
