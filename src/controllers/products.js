@@ -1,9 +1,5 @@
-import dotenv from "dotenv";
 import Product from "../models/Product";
 import productSchema from "../validations/product";
-dotenv.config();
-
-const { API_URL } = process.env;
 
 export const getAll = async (req, res) => {
   try {
@@ -43,8 +39,28 @@ export const getAll = async (req, res) => {
 
 export const getDetail = async (req, res) => {
   try {
-    const id = req.params.id;
-    const data = await Product.findById(id);
+    const data = await Product.findOne({ _id: req.params.id });
+    if (!data) {
+      return res.status(404).json({
+        message: "Không tìm thấy sản phẩm",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Gọi chi tiết sản phẩm thành công!",
+      datas: data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const filter = async (req, res) => {
+  try {
+    const filterBy = req.query;
+    const data = await Product.find(filterBy);
     if (!data) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
@@ -65,7 +81,6 @@ export const getDetail = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    // console.log("noi dung trong create controller:", req.body)
     const { error } = productSchema.validate(body);
     if (error) {
       return res.status(400).json({
