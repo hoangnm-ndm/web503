@@ -7,7 +7,7 @@ const { SECRET_CODE } = process.env;
 export const checkPermission = async (req, res, next) => {
   try {
     // Bước 1: Kiểm tra xem đã đăng nhập hay chưa?
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
       return res.status(403).json({
         message: "Bạn chưa đăng nhập!",
@@ -17,10 +17,7 @@ export const checkPermission = async (req, res, next) => {
     // Bước 2: Verify token
     const decoded = jwt.verify(token, SECRET_CODE);
     if (!decoded) {
-      return res.status(400).json({
-        message: "Token Error!",
-      });
-      // throw new Error("Token Error!");
+      throw new Error("Token Error!");
     }
     // Bước 3: Find User từ token
     const user = await User.findById(decoded._id);
