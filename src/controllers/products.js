@@ -1,13 +1,26 @@
-import dotenv from "dotenv";
 import Product from "../models/Product";
 import productSchema from "../validations/product";
-dotenv.config();
 
-const { DB_URL } = process.env;
 export const getAll = async (req, res) => {
   try {
-    const data = await Product.find({});
-    if (!data || data.length === 0) {
+    const {
+      _page = 1,
+      _limit = 10,
+      _sort = "createdAt",
+      _order = "asc",
+    } = req.query;
+    // const data = await Product.find({});
+    const options = {
+      page: _page,
+      limit: _limit,
+      sort: {
+        [_sort]: [_order] === "asc" ? 1 : -1,
+        // createdAt: 1,
+      },
+    };
+    const data = await Product.paginate({}, options);
+    console.log(data);
+    if (!data || data.docs.length === 0) {
       return res.status(404).json({
         message: "Không tìm thấy sản phẩm",
       });
@@ -49,8 +62,6 @@ export const update = async (req, res) => {
   try {
     const id = req.params.id;
     const body = req.body;
-    // const { data } = await axios.put(`${DB_URL}/products/${id}`, body);
-
     const { error } = productSchema.validate(body, { abortEarly: true });
     if (error) {
       return res.status(400).json({

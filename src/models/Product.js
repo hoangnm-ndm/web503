@@ -1,15 +1,20 @@
-import mongoose from 'mongoose'
-
-const productSchema = mongoose.Schema({
+import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
+const productSchema = mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     price: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
-    desc: String
-},{ versionKey: false, timestamps: true})
+    desc: String,
+  },
+  { versionKey: false, timestamps: true }
+);
 
-export default mongoose.model('Product', productSchema)
+productSchema.plugin(mongoosePaginate);
+
+export default mongoose.model("Product", productSchema);
