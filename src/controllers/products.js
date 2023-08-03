@@ -3,11 +3,12 @@ import productSchema from "../validations/product";
 
 export const getAll = async (req, res) => {
   try {
-    console.log("req.query", req.query);
-    const _limit = req.query._limit || 10;
-    const _page = req.query._page || 1;
-    const _sort = req.query._sort || "createdAt";
-    const _order = req.query._order || "asc";
+    const {
+      _limit = 10,
+      _page = 1,
+      _sort = "createdAt",
+      _order = "asc",
+    } = req.query;
     const options = {
       limit: _limit,
       page: _page,
@@ -20,15 +21,13 @@ export const getAll = async (req, res) => {
     // const data = await Product.find({});
     // Model.paginate([query], [options], [callback])
     const data = await Product.paginate({}, options);
-    if (!data || data.length === 0) {
-      return res.status(404).json({
-        message: "Không tìm thấy sản phẩm",
-      });
+    if (!data || data.docs.length === 0) {
+      throw new Error("Failed");
     }
 
     return res.status(200).json({
-      message: "Gọi danh sách sản phẩm thành công!",
-      datas: data,
+      message: "Success",
+      data,
     });
   } catch (error) {
     return res.status(500).json({
@@ -41,14 +40,12 @@ export const getDetail = async (req, res) => {
   try {
     const data = await Product.findOne({ _id: req.params.id });
     if (!data) {
-      return res.status(404).json({
-        message: "Không tìm thấy sản phẩm",
-      });
+      throw new Error("Failed");
     }
 
     return res.status(200).json({
-      message: "Gọi chi tiết sản phẩm thành công!",
-      datas: data,
+      message: "Success",
+      data,
     });
   } catch (error) {
     return res.status(500).json({
@@ -62,14 +59,12 @@ export const filter = async (req, res) => {
     const filterBy = req.query;
     const data = await Product.find(filterBy);
     if (!data) {
-      return res.status(404).json({
-        message: "Không tìm thấy sản phẩm",
-      });
+      throw new Error("Failed");
     }
 
     return res.status(200).json({
-      message: "Gọi chi tiết sản phẩm thành công!",
-      datas: data,
+      message: "Success",
+      data,
     });
   } catch (error) {
     return res.status(500).json({
@@ -89,13 +84,11 @@ export const create = async (req, res) => {
     }
     const data = await Product.create(body);
     if (!data) {
-      return res.status(404).json({
-        message: "Tạo mới sản phẩm thất bại!",
-      });
+      throw new Error("Failed");
     }
 
     return res.status(200).json({
-      message: "Tạo mới sản phẩm thành công!",
+      message: "Success",
       datas: data,
     });
   } catch (error) {
