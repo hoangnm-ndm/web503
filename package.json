@@ -1,18 +1,16 @@
 {
-  "name": "onclass",
+  "name": "web503_nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/app.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node ./src/app.js",
-    "start2": "nodemon --experimental-specifier-resolution=node ./src/app.js",
-    "dev": "concurrently \"json-server --watch db.json --port 3000\" \"nodemon --experimental-specifier-resolution=node ./src/app.js\"",
-    "build": "babel src -d build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hoangnm-ndm/web503_nodejs.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -20,17 +18,6 @@
   },
   "homepage": "https://github.com/hoangnm-ndm/web503_nodejs#readme",
   "dependencies": {
-    "axios": "^1.4.0",
-    "bcrypt": "^5.1.0",
-    "express": "^4.18.2",
-    "joi": "^17.9.2",
-    "mongoose": "^7.3.2"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "dotenv": "^16.3.1",
-    "json-server": "^0.17.3",
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.0.1"
   }
 }
