@@ -1,13 +1,18 @@
-const http = require("node:http");
+import http from "http";
 
-// Create a local server to receive data from
 const app = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "application/json" });
-  res.end(
-    JSON.stringify({
-      data: "Hello World!",
-    })
-  );
+  const { url, method } = req;
+  console.log(url, method);
+  switch (url) {
+    case "/products":
+      res.end(`<h1>Products Page</h1>`);
+      break;
+    case "/home":
+      res.end(`<h1>Home Page</h1>`);
+      break;
+  }
 });
 
-app.listen(8000);
+app.listen(8000, () => {
+  console.log(`Server is running on PORT 8000`);
+});
