@@ -3,11 +3,17 @@ const express = require('express')
 const app = express()
 const port = 8000
 
+app.use(express.json())
+
 app.get('/products', (req, res) => {
   res.send('Product page!')
 })
 
-app.post('/products/add/:id', (req, res) => {
+app.post('/products/:slug/:id', (req, res) => {
+  const {params, query, body} = req
+  console.log("params:", params)
+  console.log(query)
+  console.log(body)
   res.send('Add new product page!')
 })
 
