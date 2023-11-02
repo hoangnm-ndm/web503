@@ -10,3 +10,7 @@
     "price": 2000
 }
 ```
+
+BTVN:
+- Cấu hình router và code lại.
+- Đọc và tìm hiểu document Express.Router()

@@ -1,22 +1,11 @@
 // const http = require("node:http");
-const express = require('express')
+import express from 'express'
 const app = express()
 const port = 8000
 
 app.use(express.json())
 
-app.get('/products', (req, res) => {
-  res.send('Product page!')
-})
-
-app.post('/products/:slug/:id', (req, res) => {
-  const {params, query, body} = req
-  console.log("params:", params)
-  console.log(query)
-  console.log(body)
-  res.send('Add new product page!')
-})
-
+app.use("/", router)
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
