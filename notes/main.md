@@ -64,9 +64,25 @@
 - Refactor toàn bộ dự án theo mô hình MVC
 - Triển khai CRUD với một số thực thể vệ tinh (ví dụ trước đây đã CRUD với products thì giờ CRUD với categories, users, comments…)
 
+# Day 6:
+
+## Lý thuyết:
+
+- Hiểu được quan hệ giữa các thực thể trong business model
+- Nhắc lại quan hệ giữa các thực thể: one-one, one-many, many-many
+- Giới thiệu và lựa chọn công cụ để xử lý.
+
+## Thực hành:
+
+- Demo code với các request: hiển thị sản phẩm theo từng danh mục, hiển thị danh mục đi theo mỗi sản phẩm (hoặc hiển thị danh sách bạn bè theo từng user…)
+
 # Day 7: Ôn tập và kiểm tra.
 
+- Nội dung kiểm tra: CRUD với mongodb có nâng cao: hiển thị sản phẩm theo danh mục
+
 # Day 8: Ôn tập và kiểm tra.
+
+- Nội dung kiểm tra: CRUD với mongodb có nâng cao: hiển thị sản phẩm theo danh mục
 
 # Day 9:
 
@@ -99,7 +115,7 @@
 
 ## Lý thuyết:
 
-- Token: Khái niệm, một số loại phổ biến, cách triển khai
+- Token: Khái niệm, một số loại phổ biến (JWT, OTP...), cách triển khai.
 
 ## Thực hành:
 
@@ -111,13 +127,13 @@
 
 ## Lý thuyết:
 
-- Hiểu được quan hệ giữa các thực thể trong business model
-- Quan hệ giữa các thực thể: one-one, one-many, many-many
-- Giới thiệu và lựa chọn công cụ để xử lý.
+- Validation phía server (đặt vấn đề, giới thiệu công cụ)
+- Test và unit test cho nodejs services
 
 ## Thực hành:
 
-- Demo code với các request: hiển thị sản phẩm theo từng danh mục, hiển thị danh mục đi theo mỗi sản phẩm (hoặc hiển thị danh sách bạn bè theo từng user…)
+- Validation với joi hoặc yup
+- Unit test với mocha and chai.
 
 # Day 13:
 
@@ -156,6 +172,12 @@
 - Đăng ký và cấu hình, chuyển Database từ local lên Mongo Atlas
 - Deploy nodejs server với render.com
 
-# Day 16: Ôn tập và kiểm tra.
+# Day 16: Ôn tập và kiểm tra (nội dung kiểm tra)
 
-# Day 17: Hoàn thiện điểm
+- CRUD với mongodb
+- Đăng ký, đăng nhập
+
+# Day 17: Hoàn thiện điểm và mở rộng phần kiến thức nâng cao.
+
+- Demo sử dụng typescript trong nodejs.
+- Demo kết nối nodejs services và một frontend single page app.

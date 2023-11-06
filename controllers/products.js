@@ -3,7 +3,7 @@ export const getAllProduct = async (req, res) => {
     try {
         const {data} = await axios.get("http://localhost:3000/products")
         console.log(data)
-        // fetch API o day
+        
         if(data && data.length) {
             return res.status(200).json({
                 message: "Lay danh sach san pham thanh cong!",
@@ -24,7 +24,6 @@ export const getAllProduct = async (req, res) => {
 export const getDetailProduct = async (req, res) => {
     try {
         
-        // fetch API o day
         if(product) {
             return res.status(200).json({
                 message: "Lay san pham thanh cong!",
