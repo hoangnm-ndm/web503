@@ -1,5 +1,6 @@
 // const http = require("node:http");
 import express from 'express'
+import router from './routes/product'
 const app = express()
 const port = 8000
 
