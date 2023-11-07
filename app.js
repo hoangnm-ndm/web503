@@ -1,43 +1,49 @@
-// import http from "http";
-
-// const app = http.createServer((req, res) => {
-//   const { url, method } = req;
-//   console.log({ url, method });
-
-//   // Cach 2:
-//   if (url === "/products" && method === "GET") {
-//     res.end(`<div>Products Page</div>`);
-//   }
-
-//   if (url === "/products" && method === "POST") {
-//     res.end(`<div>
-//     <form>
-//     <label>Ten san pham</label>
-//     <input placeholder="Ten san pham" />
-//     <button>Them</button>
-//     </form>
-//     </div>`);
-//   }
-// });
-
-// app.listen(8000, () => {
-//   console.log(`Server is running on PORT 8000`);
-// });
-
 import express from "express"; // module syntax
 const app = express();
 const port = 8000;
 
-app.get("/", (req, res) => {
-  res.send("Homepage!");
+app.use(express.json());
+
+const products = [
+  { id: 1, name: "ipad mini", price: 1000 },
+  { id: 2, name: "macbook 14inch", price: 2000 },
+  { id: 3, name: "apple watch", price: 500 },
+];
+
+app.get("/products", (req, res) => {
+  res.send({
+    message: "Lay danh sach san pham thanh cong!",
+    data: products,
+  });
 });
 
-app.get("/shop", (req, res) => {
-  res.send("Shop page!");
+app.post("/products", (req, res) => {
+  const body = req.body;
+  // console.log({ body });
+  products.push(body);
+  res.send({
+    message: "Them san pham thanh cong!",
+    data: products,
+  });
 });
 
-app.get("/about", (req, res) => {
-  res.send("About page!");
+app.put("/products/:id", (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+  console.log({ id, body });
+  res.send({
+    message: "Them san pham thanh cong!",
+    data: products,
+  });
+});
+
+app.delete("/products/:id", (req, res) => {
+  const id = req.params.id;
+  const newProducts = products.filter((item) => item.id !== +id);
+  res.send({
+    message: "Xoa san pham thanh cong!",
+    data: newProducts,
+  });
 });
 
 app.listen(port, () => {
