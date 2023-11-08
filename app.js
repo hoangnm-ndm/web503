@@ -1,12 +1,16 @@
 // const http = require("node:http");
 import express from "express";
-import router from "./routes/product";
+import router from "./routes";
 const app = express();
-const port = 8000;
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const { PORT } = process.env;
 
 app.use(express.json());
 
-app.use("/", router);
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.use("/api", router);
+app.listen(PORT, () => {
+  console.log(`Server on port ${PORT}`);
 });
