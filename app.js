@@ -72,7 +72,7 @@ app.put("/products/:id", async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
-    const { data } = await axios.post(
+    const { data } = await axios.put(
       `http://localhost:3000/products/${id}`,
       body
     );
@@ -96,7 +96,7 @@ app.put("/products/:id", async (req, res) => {
 app.delete("/products/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    await axios.post(`http://localhost:3000/products/${id}`);
+    await axios.delete(`http://localhost:3000/products/${id}`);
     return res.status(200).json({
       message: "Da xoa san pham!",
     });
