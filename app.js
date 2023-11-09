@@ -1,20 +1,29 @@
+import axios from "axios";
 import express from "express"; // module syntax
 const app = express();
 const port = 8000;
 
 app.use(express.json());
 
-const products = [
-  { id: 1, name: "ipad mini", price: 1000 },
-  { id: 2, name: "macbook 14inch", price: 2000 },
-  { id: 3, name: "apple watch", price: 500 },
-];
-
-app.get("/products", (req, res) => {
-  res.send({
-    message: "Lay danh sach san pham thanh cong!",
-    data: products,
-  });
+app.get("/products", async (req, res) => {
+  try {
+    const { data } = await axios.get("http://localhost:3000/products");
+    if (!data || !data.length) {
+      // Cach 1:
+      return res.status(404).json({
+        message: "Khong co san pham nao!",
+        data: [],
+      });
+      // Cach 2:
+      // throw new Error("Khong co san pham nao!");
+    }
+    return res.status(200).json({
+      message: "Lay danh sach san pham thanh cong!",
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.post("/products", (req, res) => {
