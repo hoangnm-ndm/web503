@@ -1,8 +1,8 @@
-function xinTien(boMeTraLoi) {
+function xinTien(boMeTraLoi, myCallback) {
   setTimeout(() => {
     if (boMeTraLoi === true) {
       console.log(30000000);
-      muaLaptop();
+      myCallback();
     } else {
       return;
     }
@@ -13,7 +13,7 @@ function muaLaptop() {
   return "Co laptop moi!";
 }
 
-xinTien();
+xinTien(true, muaLaptop);
 
 /**
  * 3 cách để giải quyết bài toán bất đồng bộ trong JS

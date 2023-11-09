@@ -1,8 +1,35 @@
 {
   "products": [
-    { "id": 1, "name": "ipad mini", "price": 1000 },
-    { "id": 2, "name": "macbook 14inch", "price": 2000 },
-    { "id": 3, "name": "apple watch", "price": 500 }
+    {
+      "id": 1,
+      "name": "ipad mini",
+      "price": 1000
+    },
+    {
+      "id": 2,
+      "name": "macbook 14inch",
+      "price": 2000
+    },
+    {
+      "id": 3,
+      "name": "apple watch",
+      "price": 500
+    },
+    {
+      "name": "tai nghe apple",
+      "price": 200,
+      "id": 4
+    },
+    {
+      "name": "tai nghe apple",
+      "price": 200,
+      "id": 5
+    },
+    {
+      "name": "tai nghe samsung",
+      "price": 200,
+      "id": 6
+    }
   ],
   "posts": [
     {
