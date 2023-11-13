@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon --experimental-specifier-resolution=node src/app.js",
     "server": "json-server --watch db.json --port 3001",
     "dev": "vite"
   },
