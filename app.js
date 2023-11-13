@@ -1,16 +1,13 @@
-// const http = require("node:http");
+import bodyParser from "body-parser";
+import routes from "./routes";
 import express from "express";
-import router from "./routes";
+
 const app = express();
-import dotenv from "dotenv";
+const PORT = 8000;
 
-dotenv.config();
+app.use(bodyParser.json());
+app.use("/api", routes);
 
-const { PORT } = process.env;
-
-app.use(express.json());
-
-app.use("/api", router);
 app.listen(PORT, () => {
-  console.log(`Server on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
