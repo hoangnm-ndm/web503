@@ -1,9 +1,10 @@
-import axios from "axios";
+import Product from "../models/Product";
 
 export const getAllProduct = async (req, res) => {
   try {
-    const { data } = await axios.get("http://localhost:3000/products");
+    // const { data } = await axios.get("http://localhost:3000/products");
 
+    const data = await Product.find();
     if (!data || data.length === 0) {
       // Tạo ra một ngoại lệ để hứng lỗi
       throw new Error("Loi khi truy cap danh sach san pham");
@@ -23,11 +24,14 @@ export const getAllProduct = async (req, res) => {
 export const getDetailProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const { data } = await axios.get(`http://localhost:3000/products/${id}`);
-    console.log(data);
+    const { price, name } = req.query;
+    // const { data } = await axios.get(`http://localhost:3000/products/${id}`);
+    const data = await Product.findById(id);
+    // const data = await Product.find({ _id: id });
+    // const data = await Product.find({ name: name });
     if (!data) {
       // Tạo ra một ngoại lệ để hứng lỗi
-      throw new Error("Loi khi truy cap danh sach san pham");
+      throw new Error("Error");
     }
 
     return res.status(200).json({
@@ -44,8 +48,8 @@ export const getDetailProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const { data } = await axios.delete(`http://localhost:3000/products/${id}`);
-    console.log(data);
+    // const { data } = await axios.delete(`http://localhost:3000/products/${id}`);
+    const data = await Product.findByIdAndDelete(id);
     if (!data) {
       // Tạo ra một ngoại lệ để hứng lỗi
       throw new Error("Error");
@@ -65,7 +69,9 @@ export const deleteProduct = async (req, res) => {
 export const createProduct = async (req, res) => {
   try {
     const body = req.body;
-    const { data } = await axios.post(`http://localhost:3000/products`, body);
+    // const { data } = await axios.post(`http://localhost:3000/products`, body);
+
+    const data = await Product.create(body);
     console.log(data);
     if (!data) {
       // Tạo ra một ngoại lệ để hứng lỗi
@@ -87,11 +93,11 @@ export const updateProduct = async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
-    const { data } = await axios.put(
-      `http://localhost:3000/products/${id}`,
-      body
-    );
-    console.log(data);
+    // const { data } = await axios.put(
+    //   `http://localhost:3000/products/${id}`,
+    //   body
+    // );
+    const data = await Product.findByIdAndUpdate(id, body, { new: true });
     if (!data) {
       // Tạo ra một ngoại lệ để hứng lỗi
       throw new Error("Error");
