@@ -2,12 +2,12 @@
   "name": "web503_nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --experimental-specifier-resolution=node ./app.js",
-    "dev": "concurrently \"json-server -w db.json --port 3000\" \"nodemon --experimental-specifier-resolution=node ./app.js\""
+    "start": "nodemon --experimental-specifier-resolution=node ./src/app.js",
+    "dev": "concurrently \"json-server -w db.json --port 3000\" \"nodemon --experimental-specifier-resolution=node ./src/app.js\""
   },
   "repository": {
     "type": "git",

@@ -7,12 +7,21 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-const { PORT } = process.env;
+const { DB_URI, PORT } = process.env;
 
 app.use(express.json());
 
+// const connect = async () => {
+//   try {
+//     const data = await mongoose.connect(DB_URI);
+//     console.log(data);
+//   } catch (error) {}
+// };
+
+// connect();
+
 mongoose
-  .connect("mongodb://localhost:27017/web18202_db")
+  .connect(DB_URI)
   .then(() => {
     console.log("Connected to database!");
   })

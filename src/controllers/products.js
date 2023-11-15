@@ -21,6 +21,18 @@ export const getAllProduct = async (req, res) => {
   }
 };
 
+export const findProduct = async (req, res) => {
+  try {
+    console.log(req.query);
+    const { name } = req.query;
+    console.log(name);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Loi server",
+    });
+  }
+};
+
 export const getDetailProduct = async (req, res) => {
   try {
     const id = req.params.id;
