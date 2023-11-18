@@ -109,7 +109,9 @@ export const updateProduct = async (req, res) => {
     //   `http://localhost:3000/products/${id}`,
     //   body
     // );
-    const data = await Product.findByIdAndUpdate(id, body, { new: true });
+    const data = await Product.findOneAndReplace({ _id: id }, body, {
+      new: true,
+    });
     if (!data) {
       // Tạo ra một ngoại lệ để hứng lỗi
       throw new Error("Error");
