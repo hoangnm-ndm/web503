@@ -1,9 +1,7 @@
-import axios from "axios";
 import Product from "../models/Product";
 
 export const getAllProduct = async (req, res) => {
   try {
-    // const { data } = await axios.get("http://localhost:3000/products");
     const data = await Product.find();
     console.log(data);
     if (!data || !data.length) {
@@ -26,9 +24,6 @@ export const getAllProduct = async (req, res) => {
 
 export const getDetailProduct = async (req, res) => {
   try {
-    // const { data } = await axios.get(
-    //   `http://localhost:3000/products/${req.params.id}`
-    // );
     const data = await Product.findById(req.params.id);
     if (!data) {
       return res.status(404).json({
