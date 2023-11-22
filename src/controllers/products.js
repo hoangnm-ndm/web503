@@ -1,4 +1,10 @@
 import Product from "../models/Product";
+import Joi from "joi";
+const productValid = Joi.object({
+  name: Joi.string().required().min(6).max(255),
+  price: Joi.number().required().min(0),
+  desc: Joi.string().min(6),
+});
 
 export const getAllProduct = async (req, res) => {
   try {
@@ -68,8 +74,15 @@ export const deleteProduct = async (req, res) => {
 export const createProduct = async (req, res) => {
   try {
     const body = req.body;
+
+    const { error } = productValid.validate(body, { abortEarly: false });
+    if (error) {
+      const errors = error.details.map((err) => err.message);
+      return res.status(400).json({
+        message: errors.join(", "),
+      });
+    }
     const data = await Product.create(body);
-    console.log(data);
     if (!data) {
       return res.status(400).json({
         message: "Tao moi san pham that bai!",
@@ -92,6 +105,14 @@ export const updateProduct = async (req, res) => {
   try {
     const body = req.body;
     const id = req.params.id;
+
+    const { error } = productValid.validate(body, { abortEarly: false });
+    if (error) {
+      const errors = error.details.map((err) => err.message);
+      return res.status(400).json({
+        message: errors.join(", "),
+      });
+    }
 
     const data = await Product.findOneAndReplace({ _id: id }, body, {
       new: true,
