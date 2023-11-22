@@ -11,15 +11,6 @@ const { DB_URI, PORT } = process.env;
 
 app.use(express.json());
 
-// const connect = async () => {
-//   try {
-//     const data = await mongoose.connect(DB_URI);
-//     console.log(data);
-//   } catch (error) {}
-// };
-
-// connect();
-
 mongoose
   .connect(DB_URI)
   .then(() => {

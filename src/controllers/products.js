@@ -1,10 +1,6 @@
 import Product from "../models/Product";
-import Joi from "joi";
-const productValid = Joi.object({
-  name: Joi.string().required().min(6).max(255),
-  price: Joi.number().required().min(0),
-  desc: Joi.string().min(6),
-});
+
+import { productValid } from "../validations/productValid";
 
 export const getAllProduct = async (req, res) => {
   try {
