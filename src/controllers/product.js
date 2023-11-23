@@ -1,9 +1,9 @@
 import Product from "../models/Product";
+import { productValidate } from "../validations/productValid";
 
 export const getAllProduct = async (req, res) => {
   try {
     const data = await Product.find();
-    console.log(data);
     if (!data || !data.length) {
       return res.status(404).json({
         message: "Khong co san pham nao!",
@@ -16,8 +16,8 @@ export const getAllProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
@@ -37,18 +37,14 @@ export const getDetailProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
 
 export const removeProduct = async (req, res) => {
   try {
-    // const { status } = await axios.delete(
-    //   `http://localhost:3000/products/${req.params.id}`
-    // );
-
     const data = await Product.findByIdAndDelete(req.params.id);
     if (!data) {
       return res.status(404).json({
@@ -61,24 +57,29 @@ export const removeProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
 
 export const createProduct = async (req, res) => {
   try {
-    // const { data } = await axios.post(
-    //   `http://localhost:3000/products`,
-    //   req.body
-    // );
-
-    if (!req.body) {
-      throw new Error("Body is required!");
+    const body = req.body;
+    const { error } = productValidate.validate(body, { abortEarly: false });
+    if (error) {
+      const errors = error.details.map((item) => item.message);
+      return res.status(400).json({
+        message: errors,
+      });
+    }
+    if (!body) {
+      return res.status(400).json({
+        message: "Data is required!",
+      });
     }
 
-    const data = await Product.create(req.body);
+    const data = await Product.create(body);
 
     if (!data) {
       return res.status(400).json({
@@ -91,19 +92,23 @@ export const createProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
 
 export const updateProduct = async (req, res) => {
   try {
-    // const { data } = await axios.put(
-    //   `http://localhost:3000/products/${req.params.id}`,
-    //   req.body
-    // );
-    const data = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    const body = req.body;
+    const { error } = productValidate.validate(body, { abortEarly: false });
+    if (error) {
+      const errors = error.details.map((item) => item.message);
+      return res.status(400).json({
+        message: errors,
+      });
+    }
+    const data = await Product.findByIdAndUpdate(req.params.id, body, {
       new: true,
     });
     if (!data) {
@@ -117,8 +122,8 @@ export const updateProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
