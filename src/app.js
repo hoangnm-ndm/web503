@@ -1,13 +1,15 @@
 import express from "express"; // module syntax
 import router from "./routes";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 const app = express();
-const port = 8000;
+dotenv.config();
 
+const { PORT, DB_URI } = process.env;
 app.use(express.json());
 
 mongoose
-  .connect("mongodb://localhost:27017/web503_01")
+  .connect(DB_URI)
   .then(() => {
     console.log("Database connected!");
   })
@@ -17,6 +19,6 @@ mongoose
 
 app.use("/api", router);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });

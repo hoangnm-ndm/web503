@@ -2,6 +2,11 @@ import User from "../models/User";
 import { signInValid, signUpValid } from "../validations/userValid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const { SECRET_CODE } = process.env;
 
 export const signUp = async (req, res) => {
   try {
@@ -106,7 +111,9 @@ export const signIn = async (req, res) => {
     }
 
     // Buoc 4: Tao token
-    const accessToken = jwt.sign({ id: checkUser._id }, "banThayHoang");
+    const accessToken = jwt.sign({ id: checkUser._id }, SECRET_CODE, {
+      expiresIn: "10d",
+    });
 
     if (!accessToken) {
       return res.status(400).json({
