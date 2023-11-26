@@ -1,7 +1,6 @@
 import User from "../models/User";
 import { signInValid, signUpValid } from "../validations/userValid";
 import bcrypt from "bcrypt";
-import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const signUp = async (req, res) => {
@@ -62,7 +61,7 @@ export const signUp = async (req, res) => {
     // });
 
     // Cach 2: Dung bcryptjs
-    const passwordHash = await bcryptjs.hash(req.body.password, 10);
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
     if (!passwordHash) {
       return res.status(400).json({
         message: "Ma hoa mat khau that bai!",
@@ -123,7 +122,7 @@ export const signIn = async (req, res) => {
       });
     }
 
-    const checkPass = await bcryptjs.compare(
+    const checkPass = await bcrypt.compare(
       req.body.password,
       checkEmail.password
     );
