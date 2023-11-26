@@ -1,118 +1,107 @@
 import Category from "../models/Category";
+import { categoryValid } from "../validations/categorryValid";
 
-export const getAllCateries = async (req, res) => {
+export const getAllCategories = async (req, res) => {
   try {
-    const data = await Category.find();
-    if (!data || !data.length) {
+    const data = await Category.find({}).populate("products");
+    if (!data || data.length === 0)
       return res.status(404).json({
-        message: "Khong co danh muc nao!",
-        data: [],
+        message: "Not found!",
       });
-    }
     return res.status(200).json({
-      message: "Lay danh sach danh muc thanh cong!",
+      message: "Successfully!",
       data,
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
-    });
-  }
-};
-
-export const getDetailCategory = async (req, res) => {
-  try {
-    const data = await Category.findById(req.params.id);
-    if (!data) {
-      return res.status(404).json({
-        message: "Khong co danh muc nao!",
-      });
-    }
-    return res.status(200).json({
-      message: "Lay danh muc thanh cong!",
-      data,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
 
 export const createCategory = async (req, res) => {
   try {
-    const body = req.body;
-    if (!body) {
-      return res.status(400).json({
-        message: "Du lieu khong hop le!",
-      });
-    }
-    const data = await Category.create(body);
-    if (!data) {
-      return res.status(404).json({
-        message: "Tao danh muc that bai!",
-      });
-    }
-    return res.status(200).json({
-      message: "Tao danh muc thanh cong!",
-      data,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      name: error.name,
-      message: error.message,
-    });
-  }
-};
+    const { error } = categoryValid.validate(req.body, { abortEarly: false });
 
-export const removeCategory = async (req, res) => {
-  try {
-    const data = await Category.findOneAndDelete({ _id: req.params.id });
-    if (!data) {
-      return res.status(404).json({
-        message: "Xoa khong thanh cong!",
+    if (error) {
+      const errors = error.details.map((err) => err.message);
+      return res.status(400).json({
+        message: errors,
       });
     }
+
+    // Kiem tra xem category da ton tai chua
+
+    const checkCategoryName = await Category.findOne({ name: req.body.name });
+    const checkCategorySlug = await Category.findOne({ slug: req.body.slug });
+
+    if (checkCategoryName || checkCategorySlug) {
+      return res.status(400).json({
+        message: "Category already exists!",
+      });
+    }
+
+    const data = await Category.create(req.body);
+    if (!data) {
+      return res.status(400).json({
+        message: "Create category failed!",
+      });
+    }
+
     return res.status(200).json({
-      message: "Xoa thanh cong!",
+      message: "Successfully!",
       data,
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
 
 export const updateCategory = async (req, res) => {
   try {
-    const body = req.body;
-    if (!body) {
+    const { error } = categoryValid.validate(req.body, { abortEarly: false });
+
+    if (error) {
+      const errors = error.details.map((err) => err.message);
       return res.status(400).json({
-        message: "Du lieu khong hop le!",
+        message: errors,
       });
     }
+
+    // Kiem tra xem category da ton tai chua
+
+    // const checkCategoryName = await Category.findOne({ name: req.body.name });
+    // const checkCategorySlug = await Category.findOne({ slug: req.body.slug });
+
+    // if (checkCategoryName || checkCategorySlug) {
+    //   return res.status(400).json({
+    //     message: "Category already exists!",
+    //   });
+    // }
+
     const data = await Category.findOneAndReplace(
       { _id: req.params.id },
-      body,
+      req.body,
       { new: true }
     );
     if (!data) {
-      return res.status(404).json({
-        message: "Cap nhat danh muc that bai!",
+      return res.status(400).json({
+        message: "Create category failed!",
       });
     }
+
     return res.status(200).json({
-      message: "Cap nhat danh muc thanh cong!",
+      message: "Successfully!",
       data,
     });
   } catch (error) {
     return res.status(500).json({
-      name: error.name,
-      message: error.message,
+      name: error.name || "Error",
+      message: error.message || "Server error!",
     });
   }
 };
