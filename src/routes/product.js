@@ -6,7 +6,8 @@ import {
   getDetailProduct,
   updateProduct,
 } from "../controllers/products";
-import { checkRequestBodyProduct } from "../middlewares/checkReqProduct";
+
+import { checkRequestBodyProduct } from "../middlewares/checkRequestBodyProduct";
 
 const routerProduct = Router();
 routerProduct.get("/", getAllProduct);
