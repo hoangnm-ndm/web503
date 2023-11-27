@@ -32,34 +32,6 @@ export const signUp = async (req, res) => {
 
     // B3: ma hoa pass
 
-    // Cach 1: Dung bcrypt
-    // bcrypt.hash(req.body.password, 10, async (err, hash) => {
-    //   if (err) {
-    //     return res.status(400).json({
-    //       message: "Ma hoa mat khau that bai!",
-    //     });
-    //   }
-    //   if (hash) {
-    //     const user = {
-    //       username: req.body.username,
-    //       email: req.body.email,
-    //       password: hash,
-    //     };
-
-    //     const data = await User.create(user);
-    //     if (!data) {
-    //       return res.status(400).json({
-    //         message: "Dang ky that bai!",
-    //       });
-    //     }
-    //     data.password = undefined;
-    //     return res.status(200).json({
-    //       message: "Dang ky thanh cong!",
-    //       data,
-    //     });
-    //   }
-    // });
-
     // Cach 2: Dung bcryptjs
     const passwordHash = await bcrypt.hash(req.body.password, 10);
     if (!passwordHash) {

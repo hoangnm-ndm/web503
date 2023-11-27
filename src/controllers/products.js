@@ -1,7 +1,5 @@
 import Product from "../models/Product";
 
-import { productValid } from "../validations/productValid";
-
 export const getAllProduct = async (req, res) => {
   try {
     const data = await Product.find();
@@ -69,15 +67,6 @@ export const deleteProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const body = req.body;
-
-    const { error } = productValid.validate(body, { abortEarly: false });
-    if (error) {
-      const errors = error.details.map((err) => err.message);
-      return res.status(400).json({
-        message: errors.join(", "),
-      });
-    }
     const data = await Product.create(body);
     if (!data) {
       return res.status(400).json({
@@ -99,20 +88,13 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   try {
-    const body = req.body;
-    const id = req.params.id;
-
-    const { error } = productValid.validate(body, { abortEarly: false });
-    if (error) {
-      const errors = error.details.map((err) => err.message);
-      return res.status(400).json({
-        message: errors.join(", "),
-      });
-    }
-
-    const data = await Product.findOneAndReplace({ _id: id }, body, {
-      new: true,
-    });
+    const data = await Product.findOneAndReplace(
+      { _id: req.params.id },
+      req.body,
+      {
+        new: true,
+      }
+    );
     if (!data) {
       return res.status(400).json({ message: "Cap nhat san pham that bai!" });
     }
