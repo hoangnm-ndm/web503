@@ -72,17 +72,6 @@ export const updateCategory = async (req, res) => {
       });
     }
 
-    // Kiem tra xem category da ton tai chua
-
-    // const checkCategoryName = await Category.findOne({ name: req.body.name });
-    // const checkCategorySlug = await Category.findOne({ slug: req.body.slug });
-
-    // if (checkCategoryName || checkCategorySlug) {
-    //   return res.status(400).json({
-    //     message: "Category already exists!",
-    //   });
-    // }
-
     const data = await Category.findOneAndReplace(
       { _id: req.params.id },
       req.body,
@@ -96,6 +85,90 @@ export const updateCategory = async (req, res) => {
 
     return res.status(200).json({
       message: "Successfully!",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      name: error.name || "Error",
+      message: error.message || "Server error!",
+    });
+  }
+};
+
+export const removeCategory = async (req, res) => {
+  try {
+    const data = await Category.findByIdAndDelete(req.params.id);
+    if (!data) {
+      return res.status(400).json({
+        message: "Remove category failed!",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Remove successfully!",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      name: error.name || "Error",
+      message: error.message || "Server error!",
+    });
+  }
+};
+
+export const getOneCategoryById = async (req, res) => {
+  try {
+    const data = await Category.findById(req.params.id);
+    if (!data) {
+      return res.status(400).json({
+        message: "Get category failed!",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Get successfully!",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      name: error.name || "Error",
+      message: error.message || "Server error!",
+    });
+  }
+};
+
+export const getOneCategoryBySlug = async (req, res) => {
+  try {
+    const data = await Category.findOne({ slug: req.params.slug });
+    if (!data) {
+      return res.status(400).json({
+        message: "Get category failed!",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Get successfully!",
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      name: error.name || "Error",
+      message: error.message || "Server error!",
+    });
+  }
+};
+
+export const getOneCategoryByName = async (req, res) => {
+  try {
+    const data = await Category.findOne({ name: req.params.name });
+    if (!data) {
+      return res.status(400).json({
+        message: "Get category failed!",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Get successfully!",
       data,
     });
   } catch (error) {

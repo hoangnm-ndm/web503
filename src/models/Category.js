@@ -5,6 +5,7 @@ const categorySchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     desc: {
       type: String,
@@ -12,6 +13,7 @@ const categorySchema = new mongoose.Schema(
     slug: {
       type: String,
       required: true,
+      unique: true,
     },
     products: [
       {
