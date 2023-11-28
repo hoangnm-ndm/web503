@@ -67,7 +67,7 @@ export const deleteProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const data = await Product.create(body);
+    const data = await Product.create(req.body);
     if (!data) {
       return res.status(400).json({
         message: "Tao moi san pham that bai!",
@@ -90,7 +90,7 @@ export const updateProduct = async (req, res) => {
   try {
     const data = await Product.findOneAndReplace(
       { _id: req.params.id },
-      req.body,
+      { ...req.body, updatedAt: new Date() },
       {
         new: true,
       }

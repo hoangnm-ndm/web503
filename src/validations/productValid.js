@@ -17,4 +17,13 @@ export const productValid = Joi.object({
     "string.empty": "Desc không được để trống!",
     "string.min": "Desc phải có ít nhất 6 ký tự!",
   }),
+  _id: Joi.string().messages({
+    "string.base": "_id phải là một chuỗi!",
+  }),
+  createdAt: Joi.string().messages({
+    "string.base": "createdAt phải là một chuỗi!",
+  }),
+  updatedAt: Joi.string().messages({
+    "string.base": "updatedAt phải là một chuỗi!",
+  }),
 });
