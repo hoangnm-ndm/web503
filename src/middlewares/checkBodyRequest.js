@@ -1,3 +1,4 @@
+import { categoryValid } from "../validations/categorryValid";
 import { productValidate } from "../validations/productValid";
 
 export const checkBodyRequestProduct = (req, res, next) => {
