@@ -38,7 +38,17 @@ export const create = async (req, res) => {
         message: error.details[0].message,
       });
     }
+
+    const data = await Category.findByIdAndUpdate(product.categoryId, {
+      $addToSet: {
+        products: product._id,
+      },
+    });
+
+    console.log(data);
+
     const product = await Product.create(req.body);
+
     if (!product) {
       res.send({
         messenger: "Thêm sản phẩm không thành công",
