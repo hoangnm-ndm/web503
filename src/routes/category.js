@@ -8,15 +8,16 @@ import {
   removeCategory,
   updateCategory,
 } from "../controllers/category";
+import { checkBodyRequestCategory } from "../middlewares/checkBodyRequest";
 
 const categoryRouter = Router();
 
 categoryRouter.get("/", getAllCategories);
-categoryRouter.post("/", createCategory);
+categoryRouter.post("/", checkBodyRequestCategory, createCategory);
 categoryRouter.get("/:id", getOneCategoryById);
 categoryRouter.get("/name/:name", getOneCategoryByName);
 categoryRouter.get("/slug/:slug", getOneCategoryBySlug);
-categoryRouter.patch("/:id", updateCategory);
+categoryRouter.patch("/:id", checkBodyRequestCategory, updateCategory);
 categoryRouter.delete("/:id", removeCategory);
 
 export default categoryRouter;

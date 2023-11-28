@@ -65,22 +65,7 @@ export const removeProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const body = req.body;
-    const { error } = productValidate.validate(body, { abortEarly: false });
-    if (error) {
-      const errors = error.details.map((item) => item.message);
-      return res.status(400).json({
-        message: errors,
-      });
-    }
-    if (!body) {
-      return res.status(400).json({
-        message: "Data is required!",
-      });
-    }
-
-    const data = await Product.create(body);
-
+    const data = await Product.create(req.body);
     if (!data) {
       return res.status(400).json({
         message: "Create failed!",
@@ -100,15 +85,7 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   try {
-    const body = req.body;
-    const { error } = productValidate.validate(body, { abortEarly: false });
-    if (error) {
-      const errors = error.details.map((item) => item.message);
-      return res.status(400).json({
-        message: errors,
-      });
-    }
-    const data = await Product.findByIdAndUpdate(req.params.id, body, {
+    const data = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     if (!data) {

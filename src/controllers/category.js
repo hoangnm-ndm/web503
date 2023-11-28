@@ -22,17 +22,7 @@ export const getAllCategories = async (req, res) => {
 
 export const createCategory = async (req, res) => {
   try {
-    const { error } = categoryValid.validate(req.body, { abortEarly: false });
-
-    if (error) {
-      const errors = error.details.map((err) => err.message);
-      return res.status(400).json({
-        message: errors,
-      });
-    }
-
     // Kiem tra xem category da ton tai chua
-
     const checkCategoryName = await Category.findOne({ name: req.body.name });
     const checkCategorySlug = await Category.findOne({ slug: req.body.slug });
 
@@ -63,15 +53,6 @@ export const createCategory = async (req, res) => {
 
 export const updateCategory = async (req, res) => {
   try {
-    const { error } = categoryValid.validate(req.body, { abortEarly: false });
-
-    if (error) {
-      const errors = error.details.map((err) => err.message);
-      return res.status(400).json({
-        message: errors,
-      });
-    }
-
     const data = await Category.findOneAndReplace(
       { _id: req.params.id },
       req.body,
