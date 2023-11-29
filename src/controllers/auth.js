@@ -3,6 +3,9 @@ import { signInValid, signUpValid } from "../validations/userValid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 export const signUp = async (req, res) => {
   try {
     /**
@@ -108,7 +111,7 @@ export const signIn = async (req, res) => {
 
     // Buoc 4: Tao token
 
-    const token = jwt.sign({ _id: checkEmail._id }, "banthayHoang", {
+    const token = jwt.sign({ _id: checkEmail._id }, process.env.SECRET_CODE, {
       expiresIn: "1d",
     });
 
