@@ -85,9 +85,16 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   try {
-    const data = await Product.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const data = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        ...req.body,
+        updatedAt: Date.now(),
+      },
+      {
+        new: true,
+      }
+    );
     if (!data) {
       return res.status(400).json({
         message: "Update failed!",

@@ -32,6 +32,9 @@ export const signUpValid = Joi.object({
     "string.empty": "Role cannot be an empty field",
     "any.only": "Role does not match",
   }),
+  updateAt: Joi.string().messages({
+    "string.base": "UpdateAt should be a type of 'text'",
+  }),
 });
 
 export const signInValid = Joi.object({
@@ -47,5 +50,8 @@ export const signInValid = Joi.object({
     "string.min": "Password should have a minimum length of {#limit}",
     "string.max": "Password should have a maximum length of {#limit}",
     "any.required": "Password is a required field",
+  }),
+  updateAt: Joi.string().messages({
+    "string.base": "UpdateAt should be a type of 'text'",
   }),
 });

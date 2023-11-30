@@ -20,4 +20,7 @@ export const productValidate = Joi.object({
     "string.min": "Desc should have a minimum length of {#limit}",
     "any.required": "Desc is a required field",
   }),
+  updateAt: Joi.string().messages({
+    "string.base": "UpdateAt should be a type of 'text'",
+  }),
 });

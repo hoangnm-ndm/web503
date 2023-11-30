@@ -55,7 +55,7 @@ export const updateCategory = async (req, res) => {
   try {
     const data = await Category.findOneAndReplace(
       { _id: req.params.id },
-      req.body,
+      { ...req.body, updateAt: new Date() },
       { new: true }
     );
     if (!data) {

@@ -6,10 +6,6 @@ dotenv.config();
 export const checkIsAdmin = async (req, res, next) => {
   try {
     const token = req.headers?.authorization?.split(" ")[1];
-    console.log(token);
-    // Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjFkZWJlMmFiZmFiNjFjODIyYjkyMCIsImlhdCI6MTcwMTE3NDg1MywiZXhwIjoxNzAyMDM4ODUzfQ.td0_mWvPNFjRTmjy7gNJCrw3urM5ouXx-bK6XslI18U
-    // ["Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjFkZWJlMmFiZmFiNjFjODIyYjkyMCIsImlhdCI6MTcwMTE3NDg1MywiZXhwIjoxNzAyMDM4ODUzfQ.td0_mWvPNFjRTmjy7gNJCrw3urM5ouXx-bK6XslI18U"]
-
     if (!token) {
       return res.status(401).json({
         message: "Chưa đăng nhập!",
