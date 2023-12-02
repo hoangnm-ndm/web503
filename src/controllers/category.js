@@ -98,7 +98,7 @@ export const removeCategory = async (req, res) => {
 
 export const getOneCategoryById = async (req, res) => {
   try {
-    const data = await Category.findById(req.params.id);
+    const data = await Category.findById(req.params.id).populate("products");
     if (!data) {
       return res.status(400).json({
         message: "Get category failed!",
@@ -119,7 +119,9 @@ export const getOneCategoryById = async (req, res) => {
 
 export const getOneCategoryBySlug = async (req, res) => {
   try {
-    const data = await Category.findOne({ slug: req.params.slug });
+    const data = await Category.findOne({ slug: req.params.slug }).populate(
+      "products"
+    );
     if (!data) {
       return res.status(400).json({
         message: "Get category failed!",
@@ -140,7 +142,9 @@ export const getOneCategoryBySlug = async (req, res) => {
 
 export const getOneCategoryByName = async (req, res) => {
   try {
-    const data = await Category.findOne({ name: req.params.name });
+    const data = await Category.findOne({ name: req.params.name }).populate(
+      "products"
+    );
     if (!data) {
       return res.status(400).json({
         message: "Get category failed!",

@@ -124,7 +124,6 @@ export const updateProduct = async (req, res) => {
       }
     );
     /**
-     * Cach 1:
      * - Tim xem product muốn cập nhật có bị thay đổi danh mục hay không?
      * - Nếu có sự thay đổi thì cập nhật danh mục cũ và danh mục mới.
      */
