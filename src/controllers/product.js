@@ -1,5 +1,5 @@
 import Product from "../models/Product";
-import { productValidate } from "../validations/productValid";
+import category from "../models/category";
 
 export const getAllProduct = async (req, res) => {
   try {
@@ -71,6 +71,31 @@ export const createProduct = async (req, res) => {
         message: "Create failed!",
       });
     }
+    if (!data.categoryID) {
+      const updateCategory = await category.findByIdAndUpdate(
+        "656b1bdc0d50ee8e7c6e0468",
+        {
+          $push: {
+            products: data._id,
+            // push Id của sản phẩm vừa được tạo mới vào danh mục tương ứng.
+          },
+        },
+        { new: true }
+      );
+
+      // "656b1bdc0d50ee8e7c6e0468": là id của danh mục mặc đinh (other)
+    }
+    const updateCategory = await category.findByIdAndUpdate(
+      data.categoryID,
+      {
+        $push: {
+          products: data._id,
+          // push Id của sản phẩm vừa được tạo mới vào danh mục tương ứng.
+        },
+      },
+      { new: true }
+    );
+    console.log(updateCategory);
     return res.status(200).json({
       message: "Successfully!",
       data,
