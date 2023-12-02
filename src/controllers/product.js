@@ -3,7 +3,7 @@ import category from "../models/category";
 
 export const getAllProduct = async (req, res) => {
   try {
-    const data = await Product.find();
+    const data = await Product.find().populate("categoryID");
     if (!data || !data.length) {
       return res.status(404).json({
         message: "Khong co san pham nao!",
@@ -24,7 +24,7 @@ export const getAllProduct = async (req, res) => {
 
 export const getDetailProduct = async (req, res) => {
   try {
-    const data = await Product.findById(req.params.id);
+    const data = await Product.findById(req.params.id).populate("categoryID");
     if (!data) {
       return res.status(404).json({
         message: "Not found!",
@@ -110,6 +110,9 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   try {
+    const currentProduct = await Product.findById(req.params.id);
+    const oldCategoryID = currentProduct.categoryID;
+
     const data = await Product.findByIdAndUpdate(
       req.params.id,
       {
@@ -120,10 +123,31 @@ export const updateProduct = async (req, res) => {
         new: true,
       }
     );
+    /**
+     * Cach 1:
+     * - Tim xem product muốn cập nhật có bị thay đổi danh mục hay không?
+     * - Nếu có sự thay đổi thì cập nhật danh mục cũ và danh mục mới.
+     */
+
     if (!data) {
       return res.status(400).json({
         message: "Update failed!",
       });
+    }
+
+    if (oldCategoryID !== data.categoryID) {
+      await category.updateOne(
+        { _id: oldCategoryID },
+        { $pull: { products: req.params.id } },
+        { new: true }
+      );
+
+      // Cập nhật danh sách sản phẩm của category mới
+      await category.updateOne(
+        { _id: data.categoryID },
+        { $addToSet: { products: req.params.id } },
+        { new: true }
+      );
     }
     return res.status(200).json({
       message: "Successfully!",
