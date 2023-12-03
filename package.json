@@ -1,0 +1,36 @@
+{
+  "name": "onclass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon --experimental-specifier-resolution=node src/app.js",
+    "server": "json-server -w db.json --port 3000",
+    "dev": "concurrently \"json-server -w db.json --port 3000\" \"nodemon --experimental-specifier-resolution=node src/app.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangnm-ndm/web503_nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoangnm-ndm/web503_nodejs/issues"
+  },
+  "homepage": "https://github.com/hoangnm-ndm/web503_nodejs#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "json-server": "^0.17.3",
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.3.4"
+  }
+}
