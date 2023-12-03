@@ -7,7 +7,7 @@ import {
   updateProduct,
 } from "../controllers/product";
 import { checkBodyRequestProduct } from "../middlewares/checkBodyRequest";
-import { checkIsAdmin, checkPermission } from "../middlewares/checkPermission";
+import {checkPermission } from "../middlewares/checkPermission";
 
 const productRouter = Router();
 
