@@ -29,6 +29,6 @@ categoryRouter.patch(
   checkBodyRequestCategory,
   updateCategory
 );
-categoryRouter.delete("/:id", checkPermission("admin"), removeCategory);
+categoryRouter.delete("/:id", checkPermission, removeCategory);
 
 export default categoryRouter;

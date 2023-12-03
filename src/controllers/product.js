@@ -51,6 +51,20 @@ export const removeProduct = async (req, res) => {
         message: "Remove failed!",
       });
     }
+
+    // Xóa sản phẩm khỏi danh sách sản phẩm của danh mục tương ứng.
+    const updateCate = await category.updateOne(
+      { _id: data.categoryID },
+      { $pull: { products: req.params.id } },
+      { new: true }
+    );
+
+    if (!updateCate) {
+      return res.status(404).json({
+        message: "Xóa sản phẩm khỏi danh mục thất bại!",
+      });
+    }
+
     return res.status(200).json({
       message: "Successfully!",
       data,
