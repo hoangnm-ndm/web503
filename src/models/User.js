@@ -17,11 +17,9 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "sale", "member"],
+      enum: ["admin", "member"],
       default: "member",
     },
-    address: String,
-    phone: String,
   },
   { timestamps: true, versionKey: false }
 );
